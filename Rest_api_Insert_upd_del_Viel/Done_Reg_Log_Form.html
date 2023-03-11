@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <!---<title> Responsive Registration Form | CodingLab </title>--->
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+  
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+
+  .container {
+    max-width: 625px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .container .forms {
+    display: flex;
+    align-items: center;
+    height: 440px;
+    width: 200%;
+    transition: height 0.2s ease;
+  }
+
+
+  .container .form {
+    width: 50%;
+    padding: 30px;
+    background-color: #fff;
+    transition: margin-left 0.18s ease;
+  }
+
+  .container .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .container .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+
+  .content form .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px 0 12px 0;
+  }
+
+  .container.active .login {
+    margin-left: -50%;
+    opacity: 0;
+    transition: margin-left 0.18s ease, opacity 0.15s ease;
+  }
+
+  .container .signup {
+    opacity: 0;
+    transition: opacity 0.09s ease;
+  }
+
+  .container.active .signup {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  .container.active .forms {
+    height: 600px;
+  }
+
+  form .user-details .input-box {
+    margin-bottom: 10px;
+    width: calc(100% / 2 - 20px);
+  }
+
+  form .input-box span.details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  .user-details .input-box input,
+  select {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .user-details .input-box input:focus,
+  .user-details .input-box input:valid {
+    border-color: #9b59b6;
+  }
+
+
+
+  .form .input-field {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .input-field input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .input-field input:is(:focus, :valid) {
+    border-bottom-color: #4070f4;
+  }
+
+  .input-field i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 23px;
+    transition: all 0.2s ease;
+  }
+
+  .input-field input:is(:focus, :valid)~i {
+    color: #4070f4;
+  }
+
+  .input-field i.icon {
+    left: 0;
+  }
+
+  .input-field i.showHidePw {
+    right: 0;
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  .form .checkbox-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .checkbox-text .checkbox-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox-content input {
+    margin-right: 10px;
+    accent-color: #4070f4;
+  }
+
+  form .gender-details .gender-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  form .category {
+    display: flex;
+    width: 80%;
+    margin: 14px 0;
+    justify-content: space-between;
+  }
+
+  form .category label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  form .category label .dot {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #d9d9d9;
+    border: 5px solid transparent;
+    transition: all 0
+  }
+
+  #dot-1:checked~.category label .one,
+  #dot-2:checked~.category label .two,
+  #dot-3:checked~.category label .three {
+    background: #9b59b6;
+    border-color: #d9d9d9;
+  }
+
+  form input[type="radio"] {
+    display: none;
+  }
+
+  form .button {
+    height: 45px;
+    margin: 10px 0
+  }
+
+  form .button input {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+
+  form .button input:hover {
+    /* transform: scale(0.99); */
+    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+
+  @media(max-width: 584px) {
+    .container {
+      max-width: 100%;
+    }
+
+    form .user-details .input-box {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    form .category {
+      width: 100%;
+    }
+
+    .content form .user-details {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+
+    .user-details::-webkit-scrollbar {
+      width: 5px;
+    }
+  }
+
+  @media(max-width: 459px) {
+    .container .content .category {
+      flex-direction: column;
+    }
+  }
+
+  .login-signup {
+    margin-top: 30px;
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="forms">
+      <!-- Registration Form -->
+      <div class="forms">
+        <div class="form login">
+          <span class="title">Login</span>
+
+          <form action="#">
+            <div class="input-field">
+              <span class="details">Username</span>
+              <input type="text" placeholder="Enter Your Username" required>
+              <i class="uil uil-envelope icon"></i>
+            </div>
+            <div class="input-field">
+              <span class="details">Password</span>
+              <input type="password" class="password" placeholder="Enter Your Password" required>
+              <i class="uil uil-lock icon"></i>
+              <i class="uil uil-eye-slash showHidePw"></i>
+            </div>
+
+            <div class="checkbox-text">
+              <div class="checkbox-content">
+                <input type="checkbox" id="logCheck">
+                <label for="logCheck" class="text">Remember me</label>
+              </div>
+
+              <a href="#" class="text">Forgot password?</a>
+            </div>
+
+            <div class="input-field button">
+              <input type="button" value="Login">
+            </div>
+          </form>
+
+          <div class="login-signup">
+            <span class="text">Not a member?
+              <a href="#" class="text signup-link">Signup Now</a>
+            </span>
+          </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form signup">
+          <div class="title">Registration</div>
+          <div class="content">
+            <form action="#">
+              <div class="user-details">
+                <div class="input-box">
+                  <span class="details">Full Name</span>
+                  <input type="text" id="fnameInput" placeholder="Enter your name" required>
+                </div>
+                <div class="input-box">
+                  <span class="details">Email</span>
+                  <input type="text" id="emailaddress" placeholder="Enter your email" required>
+                </div>
+                <div class="input-box">
+                  <span class="details">Phone Number</span>
+                  <input type="text" id="phonenumber" placeholder="Enter your number" required>
+                </div>
+                <div class="input-box">
+                  <span class="details">Username</span>
+                  <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+                <div class="input-box">
+                  <span class="details">Password</span>
+                  <input type="text" id="password" placeholder="Enter your password" required>
+                </div>
+                <div class="input-box">
+                  <span class="details">Image URL</span>
+                  <input type="text" id="avatar" placeholder="Enter the URL of your image">
+                </div>
+                <div class="input-box">
+                  <span class="details">Gender</span>
+                  <select id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="input-box">
+                  <div id="imageContainer" style="margin-top: 2px;"></div>
+                </div>
+              </div>
+
+              <div class="checkbox-text">
+                <div class="checkbox-content">
+                  <input type="checkbox" id="termCon">
+                  <label for="termCon" class="text">I accepted all terms and conditions</label>
+                </div>
+              </div>
+
+
+              <div class="button">
+                <input type="button" onclick="insert_api_Data();" value="Signup"></input>
+              </div>
+
+              <div class="login-signup">
+                <span class="text">Already a member?
+                  <a href="#" class="text login-link">Login Now</a>
+                </span>
+              </div>
+
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add JavaScript code below this line -->
+  <script>
+    // Login and RTeg From............
+    const container = document.querySelector(".container"),
+      pwShowHide = document.querySelectorAll(".showHidePw"),
+      pwFields = document.querySelectorAll(".password"),
+      signUp = document.querySelector(".signup-link"),
+      login = document.querySelector(".login-link");
+
+    //   js code to show/hide password and change icon
+    pwShowHide.forEach(eyeIcon => {
+      eyeIcon.addEventListener("click", () => {
+        pwFields.forEach(pwField => {
+          if (pwField.type === "password") {
+            pwField.type = "text";
+
+            pwShowHide.forEach(icon => {
+              icon.classList.replace("uil-eye-slash", "uil-eye");
+            })
+          } else {
+            pwField.type = "password";
+
+            pwShowHide.forEach(icon => {
+              icon.classList.replace("uil-eye", "uil-eye-slash");
+            })
+          }
+        })
+      })
+    })
+
+    // js code to appear signup and login form
+    signUp.addEventListener("click", () => {
+      container.classList.add("active");
+    });
+    login.addEventListener("click", () => {
+      container.classList.remove("active");
+    });
+
+
+    // Insert User Data To Table.............. 
+    function insert_api_Data() {
+      var fnameInput = document.getElementById("fnameInput");
+      var phonenumber = document.getElementById("phonenumber");
+      var emailaddress = document.getElementById("emailaddress");
+      var gender = document.getElementById("gender");
+      var usernameInput = document.getElementById("username");
+      var passwordInput = document.getElementById("password");
+      var avatarInput = document.getElementById("avatar");
+      var data = {
+        FULL_NAME: fnameInput.value,
+        PHONE_NUMBER: phonenumber.value,
+        EMAIL_ADDRESS: emailaddress.value,
+        GENDER: gender.value,
+        USERNAME: usernameInput.value,
+        PASSWORD: passwordInput.value,
+        PP_URL: avatarInput.value
+      };
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/insert", true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var response = xhr.responseText;
+            console.log(response);
+            Toast.fire({
+              icon: 'success',
+              title: 'Registration Successfully'
+            });
+          } else {
+            Toast.fire({
+              icon: 'error',
+              title: 'There was an error with your request. Please try again.'
+            });
+          }
+        }
+      };
+      xhr.send(JSON.stringify(data));
+      inputElements.forEach(function (input) {
+        fnameInput.value = "";
+        phonenumber.value = "";
+        emailaddress.value = "";
+        gender.value = "";
+        username.value = "";
+        password.value = "";
+        avatar.value = "";
+      });
+    };
+
+
+    // Get the image URL input element
+    const imageUrlInput = document.getElementById('avatar');
+    const imgdesply = document.getElementById("imageContainer");
+
+    // Get the container where the image will be displayed
+    //  const imageContainer = document.createElement('div');
+    //  imageContainer.style.marginTop = '20px';
+    //  document.querySelector('.container').appendChild(imageContainer);
+
+    // Create a function that displays the image in the container
+    function displayImage() {
+      const imageUrl = imageUrlInput.value;
+      imageContainer.innerHTML = `<img src="${imageUrl}" style="max-width: 114px; border-radius: 10px; height: 65px;">`;
+    }
+
+    // Add an event listener to the image URL input box
+    imageUrlInput.addEventListener('input', displayImage);
+  </script>
+  <img src="https://cdms.police.gov.bd/cdms/r/cdmsbase/files/static/v7Y/police-logo.png" id="refresh-icon"
+    style="display:none;">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+
+
+</body>
+
+</html>
