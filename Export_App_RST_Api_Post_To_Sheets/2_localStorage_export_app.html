@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <style>
+    .export-btn {
+      margin-top: 10px;
+      position: absolute;
+      top: 0;
+      right: 8px;
+    }
+
+    .col-md-12 {
+      padding-right: 2px;
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+
+    .h-100 {
+      border-radius: 15px;
+      border: solid 2px #0080ff8f;
+      height: 100% !important;
+    }
+
+    .btn-primary {
+      padding: 3px 10px 5px 10px;
+      border-radius: 10px;
+      color: #fff;
+      background-color: #2c2876;
+      border-color: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Bootstrap Card View -->
+  <div class="container mt-5">
+    <div class="row" id="card-container">
+
+    </div>
+    <button type="button" onclick="getAndSaveData()">Lode All Data</button>
+  </div>
+
+
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-6 offset-md-3">
+        <form id="app-form">
+          <div class="form-group">
+            <label for="workspace">Workspace:</label>
+            <input type="text" class="form-control" id="workspace" name="workspace" readonly>
+          </div>
+          <div class="form-group">
+            <label for="application_id">Application ID:</label>
+            <input type="text" class="form-control" id="application_id" name="application_id" readonly>
+          </div>
+          <div class="form-group">
+            <label for="application_name">Application Name:</label>
+            <input type="text" class="form-control" id="application_name" name="application_name" readonly>
+          </div>
+          <div class="form-group">
+            <label for="alias">Alias:</label>
+            <input type="text" class="form-control" id="alias" name="alias" readonly>
+          </div>
+          <div class="form-group">
+            <label for="workspace_display_name">Workspace Display Name:</label>
+            <input type="text" class="form-control" id="workspace_display_name" name="workspace_display_name" readonly>
+          </div>
+          <div class="form-group">
+            <label for="version">Version:</label>
+            <input type="text" class="form-control" id="version" name="version" readonly>
+          </div>
+          <div class="form-group">
+            <label for="owner">Owner:</label>
+            <input type="text" class="form-control" id="owner" name="owner" readonly>
+          </div>
+          <div class="form-group">
+            <label for="application_group">Application Group:</label>
+            <input type="text" class="form-control" id="application_group" name="application_group" readonly>
+          </div>
+          <div class="form-group">
+            <label for="snapshot_date">Snapshot Date:</label>
+            <input type="text" class="form-control" id="snapshot_date" name="snapshot_date" readonly>
+          </div>
+          <div class="form-group">
+            <label for="ex_clob">Export CLOB:</label>
+            <input type="text" class="form-control" id="ex_clob" name="ex_clob" readonly>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-primary">Get Data</button>
+            <button type="submit" class="btn btn-success" onclick="submitData(event)">Export App</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function getAndSaveData() {
+      // AJAX Call to API URL
+      $.getJSON("https://apex.oracle.com/pls/apex/my_stock/API_USER/All_App_Export/Id", function (data) {
+        // Get Application Data from API Response
+        var appData = data.items;
+        // Save data to local storage
+        localStorage.setItem('appData', JSON.stringify(appData));
+        // Call function to display cards
+        displayCards();
+      });
+    }
+
+    // Function to retrieve data from local storage
+    function getDataFromStorage() {
+      return JSON.parse(localStorage.getItem('appData'));
+    }
+
+    // Function to display cards from API data
+    function displayCards() {
+      // Get data from local storage
+      var appData = getDataFromStorage();
+      // Loop through Application Data
+      $.each(appData, function (index, item) {
+        // Create Card Element
+        var card = $('<div class="col-md-4 mb-4"></div>');
+        var cardBody = $('<div class="card h-100"></div>');
+        var cardBodyDiv = $('<div class="card-body"></div>');
+        var contentDiv = $('<div class="row"></div>');
+        var prop1 = $('<div class="col-md-12"><strong>Workspace: </strong>' + item.workspace + '</div>');
+        var prop2 = $('<div class="col-md-12"><strong>Application ID: </strong>' + item.application_id + '</div>');
+        var prop3 = $('<div class="col-md-12"><strong>Application Name: </strong>' + item.application_name + '</div>');
+        /*     var prop4 = $('<div class="col-md-12"><strong>Alias: </strong>' + item.alias + '</div>');
+            var prop5 = $('<div class="col-md-12"><strong>Workspace Display Name: </strong>' + item.workspace_display_name + '</div>');
+            var prop6 = $('<div class="col-md-12"><strong>Version: </strong>' + item.version + '</div>');
+            var prop7 = $('<div class="col-md-12"><strong>Owner: </strong>' + item.owner + '</div>');
+            var prop8 = $('<div class="col-md-12"><strong>Application Group: </strong>' + item.application_group + '</div>');
+            var prop9 = $('<div class="col-md-12"><strong>Snapshot Date: </strong>' + item.snapshot_date + '</div>'); 
+            */
+        var exportBtn = $('<button type="submit" class="btn btn-primary export-btn">Export App</button>');
+        // Append Elements to Card
+        contentDiv.append(prop1);
+        contentDiv.append(prop2);
+        contentDiv.append(prop3);
+        /*  contentDiv.append(prop4);
+          contentDiv.append(prop5);
+          contentDiv.append(prop6);
+          contentDiv.append(prop7);
+          contentDiv.append(prop8);
+          contentDiv.append(prop9);
+          */
+        contentDiv.append(exportBtn);
+        cardBodyDiv.append(contentDiv);
+        cardBody.append(cardBodyDiv);
+        card.append(cardBody);
+        $('#card-container').append(card);
+      });
+    }
+
+    $(document).ready(function () {
+      // Check if data exists in local storage
+      if (localStorage.getItem('appData') === null) {
+        // If not, make API call to get data and save to local storage
+        getAndSaveData();
+      } else {
+        // If yes, display cards from local storage data
+        displayCards();
+      }
+      // Export App Button Click Event
+      $('.export-btn').click(function () {
+        getData()
+        // TODO: Add Export App Functionality
+        alert('Export App functionality is coming soon!');
+      });
+    });
+    // Function to get API data and save to local storage
+    function getData() {
+      var application_id = document.getElementById('application_id').value;
+
+      fetch('https://apex.oracle.com/pls/apex/my_stock/API_USER/App_Export/Id/' + application_id)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('workspace').value = data.items[0].workspace;
+          document.getElementById('application_id').value = data.items[0].application_id;
+          document.getElementById('application_name').value = data.items[0].application_name;
+          document.getElementById('alias').value = data.items[0].alias;
+          document.getElementById('workspace_display_name').value = data.items[0].workspace_display_name;
+          document.getElementById('version').value = data.items[0].version;
+          document.getElementById('owner').value = data.items[0].owner;
+          document.getElementById('application_group').value = data.items[0].application_group;
+          document.getElementById('snapshot_date').value = data.items[0].snapshot_date;
+          document.getElementById('ex_clob').value = data.items[0].ex_clob;
+
+          // Submit Data to Google Sheets
+          var formData = new FormData(document.forms[0]);
+          fetch('https://script.google.com/macros/s/AKfycbwgjU6K9Hu6aeV786f5VgKn8f84QYVW63uFdh0ZFCgckL02UV7QBqG0v5x_VWWQltDdXg/exec', {
+            method: 'POST',
+            body: formData
+          })
+            .then(response => console.log('Success:', response))
+            .catch(error => console.error('Error:', error));
+        })
+        .catch(error => console.error(error));
+    }
+  </script>
+</body>
+
+</html>

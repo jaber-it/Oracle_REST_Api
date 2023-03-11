@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My Stock API Data</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .h1,
+    h1 {
+      padding: 7px;
+      font-size: 2.5rem;
+    }
+
+    .btn:not(:disabled):not(.disabled) {
+      width: 24%;
+      cursor: pointer;
+      align-items: center;
+      margin-left: 73%;
+    }
+
+    .form-group {
+      display: flex;
+    }
+
+    label {
+      width: 22%;
+    }
+
+    #myForm {
+      background: #adc3c487;
+      padding: 12px;
+      border-radius: 10px;
+    }
+
+    textarea.form-control {
+      height: 450px;
+    }
+
+    .wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: flex;
+    }
+
+    .wrapper .dot {
+
+      height: 20px;
+      width: 20px;
+      background-color: #008ae6;
+      display: block;
+      margin: 7px;
+      border-radius: 50%;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      animation: animate 0.6s ease-in-out infinite alternate;
+    }
+
+    .dot:nth-child(1) {
+      animation-delay: -0.25s;
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: -0.5s;
+      background: #e60000;
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: -0.75s;
+      background: #ffcc00;
+    }
+
+    .dot:nth-child(4) {
+      animation-delay: -1s;
+      background: #008800;
+    }
+
+    @keyframes animate {
+      0% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(5px);
+      }
+    }
+
+    .row {
+      justify-content: center;
+      margin-top: 35px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="lodingicon">
+    <div class="wrapper">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
+
+  <div class="container">
+    <form id="myForm" onsubmit="submitData(event)">
+      <h1>My Stock API Data</h1>
+      <div class="form-group">
+        <label for="workspace">Workspace:</label>
+        <input type="text" id="workspace" name="workspace" class="form-control" style="width: 100%;">
+      </div>
+      <div class="form-group">
+        <label for="application_id">Application ID:</label>
+        <input type="text" id="application_id" name="application_id" class="form-control" style="width: 100%;">
+      </div>
+      <div class="form-group">
+        <label for="application_name">Application Name:</label>
+        <input type="text" id="application_name" name="application_name" class="form-control" style="width: 100%;">
+      </div>
+      <div class="form-group">
+        <label for="alias">Alias:</label>
+        <input type="text" id="alias" name="alias" class="form-control" style="width: 100%;">
+      </div>
+      <div class="form-group">
+        <label for="workspace_display_name">Workspace Display Name:</label>
+        <input type="text" id="workspace_display_name" name="workspace_display_name" class="form-control"
+          style="width: 100%;">
+      </div>
+      <div class="form-group">
+        <label for="version">Version:</label>
+        <input type="text" id="version" name="version" class="form-control" style="width: 100%;">
+      </div>
+      <div class="form-group">
+        <label for="owner">Owner:</label>
+        <input type="text" id="owner" name="owner" class="form-control" style="width: 100%;">
+      </div>
+      <div class="form-group">
+        <label for="application_group">Application Group:</label>
+        <input type="text" id="application_group" name="application_group" class="form-control" style="width: 100%;">
+      </div>
+      <div class="form-group">
+        <label for="snapshot_date">Snapshot Date:</label>
+        <input type="text" id="snapshot_date" name="snapshot_date" class="form-control" style="width: 100%;">
+      </div>
+      <div class="form-group">
+        <label for="ex_clob">Extra Column:</label>
+        <textarea id="ex_clob" name="ex_clob" class="form-control" style="width: 100%;"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <script>
+    hideGoogleLikeLoading();
+    window.addEventListener('load', () => {
+      getData();
+    });
+
+
+    function getData() {
+      showGoogleLikeLoading();
+      fetch('https://apex.oracle.com/pls/apex/my_stock/API_USER/App_Export/Id/95068')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('workspace').value = data.items[0].workspace;
+          document.getElementById('application_id').value = data.items[0].application_id;
+          document.getElementById('application_name').value = data.items[0].application_name;
+          document.getElementById('alias').value = data.items[0].alias;
+          document.getElementById('workspace_display_name').value = data.items[0].workspace_display_name;
+          document.getElementById('version').value = data.items[0].version;
+          document.getElementById('owner').value = data.items[0].owner;
+          document.getElementById('application_group').value = data.items[0].application_group;
+          document.getElementById('snapshot_date').value = data.items[0].snapshot_date;
+          document.getElementById('ex_clob').value = data.items[0].ex_clob;
+          hideGoogleLikeLoading();
+        })
+        .catch(error => console.error(error));
+    }
+
+    function submitData(event) {
+      showGoogleLikeLoading();
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+
+      fetch('https://script.google.com/macros/s/AKfycbwgjU6K9Hu6aeV786f5VgKn8f84QYVW63uFdh0ZFCgckL02UV7QBqG0v5x_VWWQltDdXg/exec', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => {
+          hideGoogleLikeLoading();
+          alert('Data submitted successfully!');
+        })
+        .catch(error => {
+          hideGoogleLikeLoading();
+          alert('An error occurred while submitting data.');
+          console.error(error);
+        });
+    }
+    function showGoogleLikeLoading() {
+      document.getElementById("lodingicon").style.display = "block";
+    }
+
+    function hideGoogleLikeLoading() {
+      document.getElementById("lodingicon").style.display = "none";
+    }
+
+  </script>
+</body>
+
+</html>
