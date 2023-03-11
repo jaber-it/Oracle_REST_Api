@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Include SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+    <!-- Include Custom CSS -->
+    <style>
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.5);
+            display: none;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+        }
+
+        /* Global Styles */
+            {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        /* table styles */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        table td img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* form styles */
+        #add-user-form-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backgroundrgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        #add-user-form-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 4px;
+            padding: 16px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        #add-user-form-container h2 {
+            margin-bottom: 16px;
+        }
+
+        #add-user-form label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        #add-user-form input,
+        #add-user-form select {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        #add-user-form button[type="submit"] {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #fff;
+        }
+
+        #add-user-form button[type="submit"]:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        #cancel-add-user-btn {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+            margin-right: 8px;
+        }
+
+        #cancel-add-user-btn:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button id="add-user-btn">Add User</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Avatar</th>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+                <th>Email Address</th>
+                <th>Gender</th>
+                <th>Username</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="users-table-body">
+            <!-- table data will be dynamically loaded here -->
+        </tbody>
+    </table>
+
+    <div id="add-user-form-overlay"></div>
+    <div id="add-user-form-container">
+        <form id="add-user-form">
+            <h2>Add User</h2>
+            <label for="full-name">Full Name:</label>
+            <input type="text" id="full-name" name="full-name" required>
+
+            <label for="phone-number">Phone Number:</label>
+            <input type="text" id="phone-number" name="phone-number" required>
+
+            <label for="email-address">Email Address:</label>
+            <input type="email" id="email-address" name="email-address" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <button type="submit">Add</button>
+            <button type="button" id="cancel-add-user-btn">Cancel</button>
+        </form>
+    </div>
+
+
+
+    <!-- Include jQuery and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <!-- Include Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+    <!-- Custom Script -->
+    <script>
+        const tableBody = document.getElementById("users-table-body");
+        const addUserBtn = document.getElementById("add-user-btn");
+        const addUserFormOverlay = document.getElementById("add-user-form-overlay");
+        const addUserFormContainer = document.getElementById("add-user-form-container");
+        const cancelAddUserBtn = document.getElementById("cancel-add-user-btn");
+        const addUserForm = document.getElementById("add-user-form");
+
+        let users = []; // global variable to store the user data
+
+        function loadTable() {
+            // showLoading();
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/view");
+            xhttp.send();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+
+                    var trHTML = '';
+                    try {
+                        const objects = JSON.parse(this.responseText);
+                        const items = objects.items; // access the "items" property
+                        if (tableBody) {
+                            for (let item of items) { // iterate through the "items" array
+                                trHTML += '<tr>';
+                                trHTML += '<td>' + item.user_id + '</td>';
+                                trHTML += '<td><img src="' + item.pp_url + '" width="50px"></td>';
+                                trHTML += '<td>' + item.full_name + '</td>';
+                                trHTML += '<td>' + item.phone_number + '</td>';
+                                trHTML += '<td>' + item.email_address + '</td>';
+                                trHTML += '<td>' + item.gender + '</td>';
+                                trHTML += '<td>' + item.username + '</td>';
+                                trHTML += '<td><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' + item.user_id + ')">Edit</button>';
+                                trHTML += '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' + item.user_id + ')">Del</button>';
+                                    trHTML += '</td>';
+                                trHTML += '</tr>';
+                                users.push(item); // add the item to the users array
+                            }
+                            tableBody.innerHTML = trHTML;
+                            // hideLoading();
+                        } else {
+                            console.log("Table body with id 'users-table-body' not found in HTML.");
+                        }
+                    } catch (error) {
+                        console.log("Error parsing JSON: " + error);
+                    }
+                } else if (this.readyState == 4 && this.status != 200) {
+                    console.log("Error: API request failed with status code " + this.status);
+                }
+            };
+        }
+
+        function showAddUserForm() {
+            addUserForm.reset();
+            addUserFormContainer.style.display = "block";
+            addUserFormOverlay.style.display = "block";
+        }
+
+        function hideAddUserForm() {
+            addUserFormContainer.style.display = "none";
+            addUserFormOverlay.style.display = "none";
+        }
+
+        function handleAddUserFormSubmit(event) {
+            event.preventDefault();
+            const fullName = document.getElementById("full-name").value;
+            const phoneNumber = document.getElementById("phone-number").value;
+            const emailAddress = document.getElementById("email-address").value;
+            const gender = document.getElementById("gender").value;
+            const username = document.getElementById("username").value;
+            const newUser = {
+                user_id: users.length + 1,
+                pp_url: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
+                full_name: fullName,
+                phone_number: phoneNumber,
+                email_address: emailAddress,
+                gender: gender,
+                username: username
+            };
+            users.push(newUser);
+            const trHTML = '<tr>' +
+                '<td>' + newUser.user_id + '</td>' +
+                '<td><img src="' + newUser.pp_url + '" width="50px"></td>' +
+                '<td>' + newUser.full_name + '</td>' +
+                '<td>' + newUser.phone_number + '</td>' +
+                '<td>' + newUser.email_address + '</td>' +
+                '<td>' + newUser.gender + '</td>' +
+                '<td>' + newUser.username + '</td>' +
+                '<td>' +
+                '<button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' + newUser.user_id + ')">Edit</button>' +
+                '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' + newUser.user_id + ')">Del</button>' +
+                '</td>' +
+                '</tr>';
+            tableBody.insertAdjacentHTML("beforeend", trHTML);
+            hideAddUserForm();
+        }
+
+        function userDelete(userId) {
+            const confirmed = confirm("Are you sure you want to delete this user?");
+            if (confirmed) {
+                const index = users.findIndex(user => user.user_id === userId);
+                if (index !== -1) {
+                    users.splice(index, 1); // remove the user from the array
+                    const tr = tableBody.querySelector("tr:nth-child(" + (index + 1) + ")");
+                    if (tr) {
+                        tr.remove(); // remove the row from the table
+                    }
+                }
+            }
+        }
+
+        addUserBtn.addEventListener("click", showAddUserForm);
+        cancelAddUserBtn.addEventListener("click", hideAddUserForm);
+        addUserForm.addEventListener("submit", handleAddUserFormSubmit);
+
+        loadTable(); // load the initial data from the API
+    </script>
+</body>
+
+</html>
