@@ -1,16 +1,12 @@
+
 const jwt = sessionStorage.getItem("jwt");
-
-
-
-
-
 if (jwt == null) {
   window.location.href = './login.html'
 }
 
 function loadUser(jwt) {
   const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "https://apex.oracle.com/pls/apex/my_stock/API_USER/LoginUser/" + jwt);
+  xhttp.open("GET", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/UserInfo/" + jwt);
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhttp.setRequestHeader("Authorization", jwt);
   xhttp.send();
@@ -20,13 +16,6 @@ function loadUser(jwt) {
       console.log(response);
       if (response.items.length > 0) {
         const user = response.items[0];
-        /*   sessionStorage.setItem("username", user.username);
-           sessionStorage.setItem("full_name", user.full_name);
-           sessionStorage.setItem("phone_number", user.phone_number);
-           sessionStorage.setItem("email_address", user.email_address);
-           sessionStorage.setItem("pp_url", user.pp_url); 
-           sessionStorage.setItem("user_type", user.user_type); 
-           */
         document.getElementById("fname").innerHTML = user.full_name;
         document.getElementById("avatar").src = user.pp_url;
         document.getElementById("username").innerHTML = user.username;

@@ -32,7 +32,78 @@
         <p class="mt-5 mb-3 text-muted"></p><a href='https://www.melivecode.com/'>TRY CALLING APIs! - www.melivecode.com</a></p>
       </form>
     </main>
-    <script src="login.js"></script>    
+    <script>
+      
+var jwt = sessionStorage.getItem("jwt");
+if (jwt != null) {
+  window.location.href = './index.html'
+}
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/login?username=" + username + "&password=" + password);
+  xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  xhttp.onreadystatechange = function () {
+    if (xhttp.readyState == 4) {
+      if (xhttp.status == 200) {
+        try {
+          const objects = JSON.parse(xhttp.responseText);
+          if (objects[0].status === "ok") {
+            sessionStorage.setItem("jwt", objects[0].user_id);
+            sessionStorage.setItem("user_type", objects[0].user_type);
+
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            });
+            Toast.fire({
+              icon: 'success',
+              title: 'Registration Successfully'
+            }).then(() => {
+              // Redirect to index.html after 3 seconds
+              setTimeout(() => {
+                window.location.href = './index.html';
+              }, 1000);
+            });
+          } else {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            });
+            Toast.fire({
+              icon: 'error',
+              title: 'There was an error with your request. Please try again.'
+            });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+  };
+
+  xhttp.send("");
+  return false;
+}
+
+    </script>    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
   </body>
