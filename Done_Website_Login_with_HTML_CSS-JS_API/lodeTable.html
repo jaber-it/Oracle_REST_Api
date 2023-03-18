@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Blog Site Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #ccc;
+}
+
+label, input, select {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+@media screen and (max-width: 767px) {
+    form {
+        max-width: none;
+    }
+
+    .table th, .table td {
+        padding: 8px 10px;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="my-4">Blog Site Users</h1>
+        <form id="register-form">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" >
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" >
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" >
+
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" >
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" >
+
+            <label for="ppurl">Profile Picture URL</label>
+            <input type="url" id="ppurl" name="ppurl" >
+
+            <input type="submit" value="Register" onclick="insert_user_data();">
+        </form>
+
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">User ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Profile Picture URL</th>
+                        <th scope="col">Gender</th>
+                    </tr>
+                </thead>
+                <tbody id="user-table">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // Function to insert user data into the database
+      // Function to register a new user and update the table
+// Function to insert a new row into the table
+function insertTableRow(data) {
+  var row = '<tr>';
+  row += '<td>' + data.user_id + '</td>';
+  row += '<td>' + data.username + '</td>';
+  row += '<td>' + data.full_name + '</td>';
+  row += '<td>' + data.phone_number + '</td>';
+  row += '<td>' + data.email_address + '</td>';
+  row += '<td>' + data.password + '</td>';
+  row += '<td>' + data.pp_url + '</td>';
+  row += '<td>' + data.gender + '</td>';
+  row += '</tr>';
+
+  var userTable = document.getElementById('user-table');
+  userTable.insertAdjacentHTML('beforeend', row);
+}
+
+// Function to handle form submission and insert data into the table
+function insert_user_data() {
+  var form = document.getElementById('register-form');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var name = document.getElementById('name').value;
+    var phone = document.getElementById('phone').value;
+    var email = document.getElementById('email').value;
+    var gender = document.getElementById('gender').value;
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    var ppurl = document.getElementById('ppurl').value;
+
+    var data = {
+      FULL_NAME: name,
+      PHONE_NUMBER: phone,
+      EMAIL_ADDRESS: email,
+      GENDER: gender,
+      USERNAME: username,
+      PASSWORD: password,
+      PP_URL: ppurl
+    };
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/insert');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          var responseData = JSON.parse(xhr.responseText);
+          insertTableRow(responseData.item);
+          form.reset();
+       
+        } else {
+          console.log('Error: ' + xhr.status);
+        }
+      }
+    };
+
+    xhr.send(JSON.stringify(data));
+    loadTableData();
+  });
+}
+
+
+function loadTableData() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/view');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        var responseData = JSON.parse(xhr.responseText);
+
+        if (responseData.items && responseData.items.length > 0) {
+          var tableBody = document.getElementById('user-table');
+          tableBody.innerHTML = '';
+
+          for (var i = 0; i < responseData.items.length; i++) {
+            var row = '<tr>';
+            row += '<td>' + responseData.items[i].user_id + '</td>';
+            row += '<td>' + responseData.items[i].username + '</td>';
+            row += '<td>' + responseData.items[i].full_name + '</td>';
+            row += '<td>' + responseData.items[i].phone_number + '</td>';
+            row += '<td>' + responseData.items[i].email_address + '</td>';
+            row += '<td>' + responseData.items[i].password + '</td>';
+            row += '<td>' + responseData.items[i].pp_url + '</td>';
+            row += '<td>' + responseData.items[i].gender + '</td>';
+            row += '</tr>';
+
+            tableBody.insertAdjacentHTML('beforeend', row);
+          }
+        } else {
+          console.log('Error: No data found');
+        }
+      } else {
+        console.log('Error: ' + xhr.status);
+      }
+    }
+  };
+
+  xhr.send();
+}
+
+        // Load user data on page load
+        window.addEventListener("load", function () {
+            loadTableData();
+        });
+
+    </script>
+</body>
+
+</html>

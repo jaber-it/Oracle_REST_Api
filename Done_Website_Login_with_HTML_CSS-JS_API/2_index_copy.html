@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="card">
+      <div class="img-wrapper">
+        <img id="avatar" src="' + item.avatar + '" alt="Profile picture">
+        <div class="overlay"></div>
+      </div>
+      <div class="details">
+        <h2 id="full_name">Full Name</h2>
+        <p id="username">@username</p>
+        <div class="contact-info">
+          <ul>
+            <li><i class="fas fa-phone-alt"></i> <span id="phone_number">Phone Number</span></li>
+            <li><i class="fas fa-envelope"></i> <span id="email_address">Email Address</span></li>
+          </ul>
+        </div>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-dribbble"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+      const jwt = sessionStorage.getItem("jwt");
+      
+      function loadUser(jwt) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "https://apex.oracle.com/pls/apex/my_stock/API_USER/LoginUser/" + jwt);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.setRequestHeader("Authorization", jwt);
+        xhttp.send();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4) {
+            const response = JSON.parse(this.responseText);
+            console.log(response);
+            if (response.items.length > 0) {
+              const user = response.items[0];
+              document.getElementById("full_name").innerHTML = user.full_name;
+              document.getElementById("avatar").src = user.pp_url;
+              document.getElementById("username").innerHTML = "@" + user.username;
+              document.getElementById("phone_number").innerHTML = user.phone_number;
+              document.getElementById("email_address").innerHTML = user.email_address;
+            }
+          }
+        };
+      }
+      
+      window.addEventListener('load', function() {
+        loadUser(jwt);
+      });
+    </script>
+  </body>
+</html>

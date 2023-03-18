@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #add-user-form-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#add-user-form-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+#add-user-form-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#add-user-form label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#add-user-form input,
+#add-user-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#add-user-form button[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-user-form button[type="submit"]:hover {
+    background-color: #0062cc;
+}
+
+#add-user-form button[type="button"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#add-user-form button[type="button"]:hover {
+    background-color: #999;
+}
+
+    </style>
+</head>
+<body>
+    <div id="add-user-form-overlay"></div>
+
+<div id="add-user-form-container">
+    <h2>Add New User</h2>
+    <form id="add-user-form">
+        <label for="full-name">Full Name:</label>
+        <input type="text" id="full-name" name="full-name" required>
+
+        <label for="phone-number">Phone Number:</label>
+        <input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{10}" required>
+
+        <label for="email-address">Email Address:</label>
+        <input type="email" id="email-address" name="email-address" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="" disabled selected>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <button type="submit">Add User</button>
+        <button type="button" id="cancel-add-user-btn">Cancel</button>
+    </form>
+</div>
+<script>
+    function handleAddUserFormSubmit(event) {
+    event.preventDefault();
+    const fullName = document.getElementById("full-name").value;
+    const phoneNumber = document.getElementById("phone-number").value;
+    const emailAddress = document.getElementById("email-address").value;
+    const gender = document.getElementById("gender").value;
+    const username = document.getElementById("username").value;
+    const newUser = {
+        full_name: fullName,
+        phone_number: phoneNumber,
+        email_address: emailAddress,
+        gender: gender,
+        username: username
+    };
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/insert");
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                console.log("User added successfully:", newUser);
+                users.push(newUser); // add the new user to the users array
+                const trHTML = '<tr>' +
+                                '<td>' + users.length + '</td>' +
+                                '<td><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" width="50px"></td>' +
+                                '<td>' + newUser.full_name + '</td>' +
+                                '<td>' + newUser.phone_number + '</td>' +
+                                '<td>' + newUser.email_address + '</td>' +
+                                '<td>' + newUser.gender + '</td>' +
+                                '<td>' + newUser.username + '</td>' +
+                                '<td>' +
+                                    '<button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' + users.length + ')">Edit</button>' +
+                                    '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' + users.length + ')">Del</button>' +
+                                '</td>' +
+                            '</tr>';
+                tableBody.insertAdjacentHTML("beforeend", trHTML); // add the new row to the table
+                hideAddUserForm();
+            } else {
+                console.log("Error adding user:", this.responseText);
+            }
+        }
+    };
+    xhttp.send(JSON.stringify(newUser));
+}
+</script>
+</body>
+</html>
