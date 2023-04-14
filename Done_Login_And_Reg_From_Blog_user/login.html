@@ -7,48 +7,55 @@
   <!---<title> Responsive Registration Form | CodingLab </title>--->
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-/yVRLYEpX75KQ+oQQDptdrNAhZiEl1A1NwKjJK0vJEN95h99lF9fjK7z6xnlx5A5U6jnkU6rYSMhDzMK8HXdWg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 </style>
 
 <body>
   <div class="containerdiv">
     <!-- Registration Form -->
-    <div class="form login ">
-      <span class="title">Login</span>
+    <div class="forms">
+      <div class="form login">
+        <span class="title">Login</span>
 
-      <form action="#">
-        <div class="input-field">
-          <span class="details">Username</span>
-          <input type="text" id="username" placeholder="Enter Your Username" required>
-          <i class="uil uil-envelope icon"></i>
-        </div>
-        <div class="input-field">
-          <span class="details">Password</span>
-          <input type="password" id="password" class="password" placeholder="Enter Your Password" required>
-          <i class="uil uil-lock icon"></i>
-          <i class="uil uil-eye-slash showHidePw"></i>
-        </div>
-
-        <div class="checkbox-text">
-          <div class="checkbox-content">
-            <input type="checkbox" id="logCheck">
-            <label for="logCheck" class="text">Remember me</label>
+        <form action="#">
+          <div class="input-field">
+            <span class="details">Username</span>
+            <input type="text" placeholder="Enter Your Username" required>
+            <i class="uil uil-envelope icon"></i>
+          </div>
+          <div class="input-field">
+            <span class="details">Password</span>
+            <input type="password" class="password" placeholder="Enter Your Password" required>
+            <i class="uil uil-lock icon"></i>
+            <i class="uil uil-eye-slash showHidePw"></i>
           </div>
 
-          <a href="#" class="text">Forgot password?</a>
-        </div>
+          <div class="checkbox-text">
+            <div class="checkbox-content">
+              <input type="checkbox" id="logCheck">
+              <label for="logCheck" class="text">Remember me</label>
+            </div>
 
-        <div class="input-field button">
-          <input type="button" onclick="login()" value="Login">
-        </div>
-      </form>
+            <a href="#" class="text">Forgot password?</a>
+          </div>
 
-      <div class="login-signup">
-        <span class="text">Not a member?
-          <a href="#" class="text signup-link">Signup Now</a>
-        </span>
+          <div class="input-field button">
+            <input type="submit" onclick="login()" value="Login">
+          </div>
+        </form>
+
+        <div class="login-signup">
+          <span class="text">Not a member?
+            <a href="#" class="text signup-link">Signup Now</a>
+          </span>
+        </div>
       </div>
     </div>
 
@@ -120,14 +127,12 @@
       </div>
     </div>
   </div>
+
   <!-- Add JavaScript code below this line -->
   <script src="script.js"></script>
   <script src="login.js"></script>
   <script>
-
-
-    // js code to appear signup and login form
-    const loginForm = document.querySelector('.form.login');
+      const loginForm = document.querySelector('.form.login');
     const signupForm = document.querySelector('.form.signup');
     const loginLink = document.querySelector('.login-link');
     const signupLink = document.querySelector('.signup-link');
@@ -141,7 +146,6 @@
       signupForm.style.display = 'block';
       loginForm.style.display = 'none';
     });
-
 
     // Get the image URL input element
     const imageUrlInput = document.getElementById('avatar');

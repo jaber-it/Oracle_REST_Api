@@ -7,6 +7,7 @@ function insert_api_Data() {
   var usernameInput = document.getElementById("username");
   var passwordInput = document.getElementById("password");
   var avatarInput = document.getElementById("avatar");
+  var genderInput = document.getElementById("gender");
 
   // Check if username, email, and phone number already exist
   var xhr = new XMLHttpRequest();
@@ -72,7 +73,8 @@ function insert_api_Data() {
             EMAIL_ADDRESS: emailaddress.value,
             USERNAME: usernameInput.value,
             PASSWORD: passwordInput.value,
-            PP_URL: avatarInput.value
+            PP_URL: avatarInput.value,
+            GENDER: genderInput.value
           };
           var xhr2 = new XMLHttpRequest();
           xhr2.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/insert", true);

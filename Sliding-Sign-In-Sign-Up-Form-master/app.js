@@ -145,6 +145,7 @@ var jwt = sessionStorage.getItem("jwt");
 if (jwt != null) {
   window.location.href = './index.html'
 }
+
 function login() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
@@ -183,21 +184,7 @@ function login() {
               }, 1000);
             });
           } else {
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            });
-            Toast.fire({
-              icon: 'error',
-              title: 'There was an error with your request. Please try again.'
-            });
+            window.alert('Username and password do not match');
           }
         } catch (error) {
           console.error(error);
