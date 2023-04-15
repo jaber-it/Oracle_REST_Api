@@ -26,8 +26,9 @@
 
   .containerdiv .forms {
     border-radius: 20px;
-    display: flex;
+   /* display: flex;
     align-items: center;
+    */
     transition: height 0.2s ease;
   }
 
@@ -41,7 +42,7 @@
   }
 
   .containerdiv .login{
-    max-width: 385px;
+    max-width: 425px;
   }
 
   .containerdiv .signup{
