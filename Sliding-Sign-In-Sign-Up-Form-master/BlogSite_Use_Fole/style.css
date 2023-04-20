@@ -1,4 +1,5 @@
 
+   /* Login And SingUP Css Code...*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
   .signup {
     display: none;
@@ -242,8 +243,7 @@
       text-align: center;
     }
 
-    
-
+   /* Card View Css Code...*/
 .card {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
     width: 100%;
