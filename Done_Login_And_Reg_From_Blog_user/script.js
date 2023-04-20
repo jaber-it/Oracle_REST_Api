@@ -4,8 +4,8 @@ function insert_api_Data() {
   var fnameInput = document.getElementById("fnameInput");
   var phonenumber = document.getElementById("phonenumber");
   var emailaddress = document.getElementById("emailaddress");
-  var usernameInput = document.getElementById("username");
-  var passwordInput = document.getElementById("password");
+  var usernameInput = document.getElementById("usernamereg");
+  var passwordInput = document.getElementById("passwordreg");
   var avatarInput = document.getElementById("avatar");
   var genderInput = document.getElementById("gender");
 

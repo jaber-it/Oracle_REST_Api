@@ -50,7 +50,7 @@ function logout() {
     localStorage.clear();
     sessionStorage.clear();
     sessionStorage.removeItem("jwt");
-    window.location.href = './login.html'
+    window.history.back();
 };
 
 function showhide() {
@@ -62,10 +62,56 @@ function showhide() {
     }
 };
 
+
+function logvalidateForm() {
+  var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+  var usernameInput = document.getElementById("username");
+  var passwordInput = document.getElementById("password");
+
+  if (usernameInput.value === "") {
+    Toast.fire({
+      icon: 'error',
+      title: 'Please enter a username'// 'Username is required',
+      //text: 'Please enter a username'
+    });
+    return false;
+  }
+  if (passwordInput.value === "") {
+    Toast.fire({
+      icon: 'error',
+      title: 'Please enter a password' //'Password is required',
+      //text: 'Please enter a password'
+    });
+    return false;
+  }
+
+  checkUser();
+};
+
 function checkUser() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-  
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/view");
   
@@ -79,32 +125,34 @@ function checkUser() {
               if (user.password === password) {
                 login(username, password);
               } else {
-                Swal.fire({
+               
+
+                Toast.fire({
                   icon: 'error',
                   title: 'Username and password do not match',
-                  text: 'Please enter a valid password'
+               //   text: 'Please enter a valid password'
                 });
               }
             } else {
-              Swal.fire({
+                Toast.fire({
                 icon: 'error',
                 title: 'Username not found',
-                text: 'Please enter a valid username'
+              //  text: 'Please enter a valid username'
               });
             }
           } catch (error) {
             console.error(error);
-            Swal.fire({
+            Toast.fire({
               icon: 'error',
-              title: 'Error',
-              text: 'There was an error with your request. Please try again later.'
+              title: 'There was an error with your request. Please try again later.'
+          //    text: 'There was an error with your request. Please try again later.'
             });
           }
         } else {
-          Swal.fire({
+            Toast.fire({
             icon: 'error',
-            title: 'Error',
-            text: 'There was an error with your request. Please try again later.'
+            title: 'There was an error with your request. Please try again later.'
+         //   text: 'There was an error with your request. Please try again later.'
           });
         }
       }
@@ -115,6 +163,17 @@ function checkUser() {
   
   
   function login(username, password) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
     const xhr2 = new XMLHttpRequest();
     xhr2.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/login");
     xhr2.setRequestHeader("Content-Type", "application/json");
@@ -126,33 +185,22 @@ function checkUser() {
             const objects = JSON.parse(xhr2.responseText);
             if (objects[0].status === "ok") {
               sessionStorage.setItem("jwt", objects[0].user_id);
-              sessionStorage.setItem("user_type", objects[0].user_type);
-    
-                const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 2000,
-                  timerProgressBar: true,
-                  didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                  }
-                });
+              sessionStorage.setItem("user_type", objects[0].user_type);    
+                
                 Toast.fire({
                   icon: 'success',
                   title: 'Login Successful'
                 }).then(() => {
                   // Redirect to index.html after 3 seconds
                   setTimeout(() => {
-                    window.location.href = './new.html';
+                    window.history.back();
                   }, 1000);
                 });
               } else {
-                Swal.fire({
+                Toast.fire({
                   icon: 'error',
-                  title: 'Invalid Credentials',
-                  text: 'Username and password do not match'
+                  title: 'Username and password do not match',
+                 // text: 
                 }).then(() => {
                   // Clear the username and password fields
                   document.getElementById("username").value = "";
@@ -161,17 +209,17 @@ function checkUser() {
               }
             } catch (error) {
               console.error(error);
-              Swal.fire({
+              Toast.fire({
                 icon: 'error',
-                title: 'Error',
-                text: 'There was an error with your request. Please try again later.'
+                title: 'There was an error with your request. Please try again later.'
+               // text: 'There was an error with your request. Please try again later.'
               });
             }
           } else {
-            Swal.fire({
+            Toast.fire({
               icon: 'error',
-              title: 'Error',
-              text: 'There was an error with your request. Please try again later.'
+              title: 'There was an error with your request. Please try again later.'
+          //    text: 'There was an error with your request. Please try again later.'
             });
           }
         }
@@ -186,121 +234,180 @@ function checkUser() {
       return false;
     };
   
+
+
+    function validateForm() {
+      var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+      var emailaddress = document.getElementById("emailaddress");
+      var phonenumber = document.getElementById("phonenumber");
+      var usernameInput = document.getElementById("usernamereg");
+      var passwordInput = document.getElementById("passwordreg");
+    
+      if (emailaddress.value === "") {
+        Toast.fire({
+          icon: 'error',
+          title: 'Please enter your email address' //'Email is required',
+          //text: 'Please enter your email address'
+        });
+        return false;
+      }
+      if (phonenumber.value === "") {
+        Toast.fire({
+          icon: 'error',
+          title: 'Please enter your phone Number' //'Email is required',
+          //text: 'Please enter your email address'
+        });
+        return false;
+      }
+      if (usernameInput.value === "") {
+        Toast.fire({
+          icon: 'error',
+          title: 'Please enter a username'// 'Username is required',
+          //text: 'Please enter a username'
+        });
+        return false;
+      }
+      if (passwordInput.value === "") {
+        Toast.fire({
+          icon: 'error',
+          title: 'Please enter a password' //'Password is required',
+          //text: 'Please enter a password'
+        });
+        return false;
+      }
+    
+      insert_api_Data();
+    };
+
 function insert_api_Data() {
+  var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
     var fnameInput = document.getElementById("fnameInput");
     var phonenumber = document.getElementById("phonenumber");
     var emailaddress = document.getElementById("emailaddress");
-    var usernameInput = document.getElementById("username");
-    var passwordInput = document.getElementById("password");
+    var usernameInput = document.getElementById("usernamereg");
+    var passwordInput = document.getElementById("passwordreg");
     var avatarInput = document.getElementById("avatar");
     var genderInput = document.getElementById("gender");
-
+    var loginForm = document.getElementById("loginForm");
+    var signupForm = document.getElementById("signupForm");
+  
     // Check if username, email, and phone number already exist
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/view", true);
-
+  
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                var items = response.items;
-                var usernameExists = false;
-                var emailExists = false;
-                var phoneExists = false;
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          var items = response.items;
+          var usernameExists = false;
+          var emailExists = false;
+          var phoneExists = false;
 
-                var Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+          for (var i = 0; i < items.length; i++) {
+            if (items[i].username === usernameInput.value) {
+              usernameExists = true;
+              break;
+            }
+            if (items[i].email_address === emailaddress.value) {
+              emailExists = true;
+              break;
+            }
+            if (items[i].phone_number === phonenumber.value) {
+              phoneExists = true;
+              break;
+            }
+          }
+          if (usernameExists) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Username already exists',
+           //   text: 'Please choose a different username'
+            });
+          } else if (emailExists) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Email already exists',
+            //  text: 'Please enter a different email address'
+            });
+          } else if (phoneExists) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Phone number already exists',
+            //  text: 'Please enter a different phone number'
+            });
+          } else {
+            // If the username, email, and phone number do not already exist, send the data to the server
+            var data = {
+              FULL_NAME: fnameInput.value,
+              PHONE_NUMBER: phonenumber.value,
+              EMAIL_ADDRESS: emailaddress.value,
+              USERNAME: usernameInput.value,
+              PASSWORD: passwordInput.value,
+              PP_URL: avatarInput.value,
+              GENDER: genderInput.value
+            };
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/insert", true);
+            xhr2.setRequestHeader('Content-Type', 'application/json');
+  
+            xhr2.onreadystatechange = function () {
+              if (xhr2.readyState === 4) {
+                if (xhr2.status === 200) {
+                  var response = xhr2.responseText;
+                  console.log(response);
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Registration Successful',
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      loginForm.style.display = 'block';
+                      signupForm.style.display = 'none';
                     }
-                });
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].username === usernameInput.value) {
-                        usernameExists = true;
-                        break;
-                    }
-                    if (items[i].email_address === emailaddress.value) {
-                        emailExists = true;
-                        break;
-                    }
-                    if (items[i].phone_number === phonenumber.value) {
-                        phoneExists = true;
-                        break;
-                    }
-                }
-                if (usernameExists) {
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Username already exists',
-                        text: 'Please choose a different username'
-                    });
-                } else if (emailExists) {
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Email already exists',
-                        text: 'Please enter a different email address'
-                    });
-                } else if (phoneExists) {
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Phone number already exists',
-                        text: 'Please enter a different phone number'
-                    });
+                  });
                 } else {
-                    // If the username, email, and phone number do not already exist, send the data to the server
-                    var data = {
-                        FULL_NAME: fnameInput.value,
-                        PHONE_NUMBER: phonenumber.value,
-                        EMAIL_ADDRESS: emailaddress.value,
-                        USERNAME: usernameInput.value,
-                        PASSWORD: passwordInput.value,
-                        PP_URL: avatarInput.value,
-                        GENDER: genderInput.value
-                    };
-                    var xhr2 = new XMLHttpRequest();
-                    xhr2.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/insert", true);
-                    xhr2.setRequestHeader('Content-Type', 'application/json');
-
-                    xhr2.onreadystatechange = function () {
-                        if (xhr2.readyState === 4) {
-                            if (xhr2.status === 200) {
-                                var response = xhr2.responseText;
-                                console.log(response);
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Registration Successful',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        container.classList.remove("sign-up-mode");
-                                    }
-                                });
-                            } else {
-                                Toast.fire({
-                                    icon: 'error',
-                                    title: 'Error',
-                                    text: 'There was an error with your request. Please try again.'
-                                });
-                            }
-                        }
-                    };
-                    xhr2.send(JSON.stringify(data));
-                }
-            } else {
-                Toast.fire({
+                  Toast.fire({
                     icon: 'error',
                     title: 'Error',
                     text: 'There was an error with your request. Please try again.'
-                });
-            }
+                  });
+                }
+              }
+            };
+            xhr2.send(JSON.stringify(data));
+          }
+        } else {
+          Toast.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'There was an error with your request. Please try again.'
+          });
         }
+      }
     };
     xhr.send();
-};
+  };
+      
 
 //loadUser(sessionStorage.getItem("jwt"));
 function loadUser(jwt) {
