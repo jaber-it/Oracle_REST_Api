@@ -3,7 +3,7 @@
 // login.js
 var jwt = sessionStorage.getItem("jwt");
 if (jwt != null) {
-  window.location.href = './index.html'
+  window.location.href = './Home.html'
 }
 
 function login() {
