@@ -29,6 +29,7 @@ body {
   border-radius: 20px;
   display: flex;
   align-items: center;
+  justify-content: center;
   transition: height 0.2s ease;
 }
 
