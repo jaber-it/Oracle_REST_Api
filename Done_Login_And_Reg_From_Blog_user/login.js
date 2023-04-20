@@ -40,7 +40,7 @@ function login() {
             }).then(() => {
               // Redirect to index.html after 3 seconds
               setTimeout(() => {
-                window.location.href = './Home.html';
+                window.location.href = './new.html';
               }, 1000);
             });
           } else {
