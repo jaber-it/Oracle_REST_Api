@@ -25,7 +25,7 @@ body {
 }
 
 .containerdiv .forms {
-  width: 450px;
+
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -35,20 +35,19 @@ body {
 
 
 .containerdiv .form {
-  width: 450px;
   border-radius: 20px;
-  width: 100%;
+ // width: 100%;
   padding: 30px;
   background-color: #fff;
   transition: margin-left 0.18s ease;
 }
 
 .containerdiv .login {
-  max-width: 485px;
+ // max-width: 485px;
 }
 
 .containerdiv .signup {
-  max-width: 585px;
+ // max-width: 585px;
 }
 
 .containerdiv .title {
