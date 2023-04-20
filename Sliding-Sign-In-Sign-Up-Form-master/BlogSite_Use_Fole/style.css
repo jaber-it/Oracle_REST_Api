@@ -78,17 +78,7 @@ form .user-details .input-box {
   margin-bottom: 7px;
   width: calc(50% - 22px);
 }
-CREATE TABLESPACE MY_USER_DATA
-    DATAFILE 'D:\DB_19C\ORADATA\ORCL\ORCLPDB\MY_USER_DATA.DBF'
-                 SIZE 121600K AUTOEXTEND ON NEXT 100M MAXSIZE UNLIMITED
-    LOGGING
-    DEFAULT
-    NO INMEMORY
-    ONLINE
-    EXTENT MANAGEMENT LOCAL AUTOALLOCATE
-    BLOCKSIZE 8 K
-    SEGMENT SPACE MANAGEMENT AUTO
-    FLASHBACK ON;
+
 
 form .user-details .input-box span.details {
  // display: block;
