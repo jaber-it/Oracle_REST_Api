@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+    <link rel="stylesheet" href="style11.css">
+    <style>
+        .card-header {
+            background-color: #3f51b5;
+            color: white;
+        }
+
+        .card {
+            margin-top: 5%;
+        }
+
+        .form-control:focus {
+            border-color: #3f51b5;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-center">Login</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="login-form" method="post">
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" onclick="login();">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script>
+        
+        function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/login");
+  xhttp.setRequestHeader("Content-Type", "application/json");
+
+  xhttp.onreadystatechange = function () {
+    if (xhttp.readyState == 4) {
+      if (xhttp.status == 200) {
+        try {
+          const objects = JSON.parse(xhttp.responseText);
+          if (objects[0].status === "ok") {
+            sessionStorage.setItem("jwt", objects[0].user_id);
+            sessionStorage.setItem("user_type", objects[0].user_type);
+
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            });
+            Toast.fire({
+              icon: 'success',
+              title: 'Login Successful'
+            }).then(() => {
+              // Redirect to index.html after 3 seconds
+              setTimeout(() => {
+                window.location.href = './new.html';
+              }, 1000);
+            });
+          } else if (objects[0].status === "not_found") {
+            Swal.fire({
+              icon: 'error',
+              title: 'User not found',
+              text: 'The username you entered does not exist'
+            }).then(() => {
+              // Clear the username and password fields
+              document.getElementById("username").value = "";
+              document.getElementById("password").value = "";
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Invalid Credentials',
+              text: 'Username and password do not match'
+            }).then(() => {
+              // Clear the username and password fields
+              document.getElementById("username").value = "";
+              document.getElementById("password").value = "";
+            });
+          }
+        } catch (error) {
+          console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'There was an error with your request. Please try again later.'
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'There was an error with your request. Please try again later.'
+        });
+      }
+    }
+  };
+
+  const data = {
+    "username": username,
+    "password": password,
+  };
+
+  xhttp.send(JSON.stringify(data));
+  return false;
+};
+
+    </script>
+</body>
+</html>
