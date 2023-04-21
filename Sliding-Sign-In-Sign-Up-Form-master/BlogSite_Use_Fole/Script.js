@@ -167,7 +167,7 @@ function login(username, password) {
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: 2000,
+    timer: 1000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -193,7 +193,8 @@ function login(username, password) {
             }).then(() => {
               // Redirect to index.html after 3 seconds
               setTimeout(() => {
-                window.history.back();
+                window.location.href = './new.html';
+               // window.history.back();
               }, 1000);
             });
           } else {
