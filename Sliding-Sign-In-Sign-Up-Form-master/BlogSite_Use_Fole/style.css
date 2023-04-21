@@ -1,6 +1,6 @@
 /* Login And SingUP Css Code...*/
   
-    
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 .signup {
   display: none;
@@ -8,10 +8,7 @@
 
 
 body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
   padding: 10px;
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
@@ -28,6 +25,7 @@ body {
 }
 
 .containerdiv .forms {
+   width: 100%;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -43,11 +41,7 @@ body {
 }
 
 .containerdiv .login{
-  max-width: 485px;
-}
-
-.containerdiv .signup{
-  max-width: 585px;
+   width: 100%;
 }
 
 .containerdiv .title {
@@ -243,6 +237,7 @@ form .user-details .input-field span.details {
     margin-top: 30px;
     text-align: center;
   }
+
 
   
 

@@ -3,7 +3,7 @@
 // Login.js GitHub Url.
   <script src='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Done_Login_And_Reg_From_Blog_user/login.js'/> 
 // insert_api_Data.js GitHub Url.
- <script src='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Done_Login_And_Reg_From_Blog_user/script.js'/> 
+ <script src='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/Script.js'/> 
 // style.css GitHub Url.
 <link href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Done_Login_And_Reg_From_Blog_user/style.css' rel='stylesheet'/>  
 
