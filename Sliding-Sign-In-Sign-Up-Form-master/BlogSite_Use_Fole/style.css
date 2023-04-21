@@ -209,7 +209,6 @@ form .input-field span.details {
 /* Card View Css Code...*/
 .card {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
