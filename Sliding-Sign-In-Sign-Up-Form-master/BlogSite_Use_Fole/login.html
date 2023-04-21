@@ -20,7 +20,6 @@
 <body>
   <div class="containerdiv">
     <!-- Registration Form -->
-    <div class="forms">
       <div class="form login" id="loginForm">
         <span class="title">Login</span>
 
@@ -46,18 +45,23 @@
             <a href="#" class="text">Forgot password?</a>
           </div>
 
+          <div class="mycenter">
+            <button class="mybutton5" type="button" onclick="logvalidateForm()">Login</button>
+        </div>
+        <!--
           <div class="input-field button">
             <input type="submit" onclick="logvalidateForm()" value="Login">
           </div>
+          -->
         </form>
 
         <div class="login-signup">
           <span class="text">Not a member?
-            <a href="#" class="text signup-link">Signup Now</a>
+            <a href="#" class="text signup-link">Create New Account</a>
           </span>
         </div>
       </div>
-    </div>
+
 
     <!-- Registration Form -->
     <div class="form signup" id="signupForm">
@@ -108,10 +112,14 @@
               <label for="termCon" class="text">I accepted all terms and conditions</label>
             </div>
           </div>
+          <div class="mycenter">
+            <button class="mybutton6" type="button" onclick="validateForm()">Create New Account</button>
+        </div>
+        <!--
           <div class="button">
             <input type="button" onclick="validateForm();" value="Signup">
           </div>
-
+-->
           <div class="login-signup">
             <span class="text">Already a member?
               <a href="#" class="text login-link">Login Now</a>
