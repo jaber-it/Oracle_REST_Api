@@ -50,7 +50,7 @@ function logout() {
   localStorage.clear();
   sessionStorage.clear();
   sessionStorage.removeItem("jwt");
-  window.history.back();
+  window.location.reload(1);
 };
 
 function showhide() {
