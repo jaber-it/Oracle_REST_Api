@@ -193,8 +193,8 @@ function login(username, password) {
             }).then(() => {
               // Redirect to index.html after 3 seconds
               setTimeout(() => {
-                window.location.href = './new.html';
-               // window.history.back();
+               // window.location.href = './new.html';
+                window.history.back();
               }, 1000);
             });
           } else {
