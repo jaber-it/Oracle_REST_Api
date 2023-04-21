@@ -9,58 +9,55 @@
     integrity="sha512-/yVRLYEpX75KQ+oQQDptdrNAhZiEl1A1NwKjJK0vJEN95h99lF9fjK7z6xnlx5A5U6jnkU6rYSMhDzMK8HXdWg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--
-  <link href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Done_Login_And_Reg_From_Blog_user/style.css'
+  <link
+    href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style4.css'
     rel='stylesheet' />
--->
-  <link rel="stylesheet" href="style.css" />
-
 </head>
 
 <body>
   <div class="containerdiv">
     <!-- Registration Form -->
-      <div class="form login" id="loginForm">
-        <span class="title">Login</span>
+    <div class="form login" id="loginForm">
+      <span class="title">Login</span>
 
-        <form action="#">
-          <div class="input-field">
-            <span class="details">Username</span>
-            <input type="text" id="username" placeholder="Enter Your Username" required>
-            <i class="uil uil-envelope icon"></i>
-          </div>
-          <div class="input-field">
-            <span class="details">Password</span>
-            <input type="password" id="password" class="password" placeholder="Enter Your Password" required>
-            <i class="uil uil-lock icon"></i>
-            <i class="uil uil-eye-slash showHidePw"></i>
-          </div>
+      <form action="#">
+        <div class="input-field">
+          <span class="details">Username</span>
+          <input type="text" id="username" placeholder="Enter Your Username" required>
+          <i class="uil uil-envelope icon"></i>
+        </div>
+        <div class="input-field">
+          <span class="details">Password</span>
+          <input type="password" id="password" class="password" placeholder="Enter Your Password" required>
+          <i class="uil uil-lock icon"></i>
+          <i class="uil uil-eye-slash showHidePw"></i>
+        </div>
 
-          <div class="checkbox-text">
-            <div class="checkbox-content">
-              <input type="checkbox" id="logCheck">
-              <label for="logCheck" class="text">Remember me</label>
-            </div>
-
-            <a href="#" class="text">Forgot password?</a>
+        <div class="checkbox-text">
+          <div class="checkbox-content">
+            <input type="checkbox" id="logCheck">
+            <label for="logCheck" class="text">Remember me</label>
           </div>
 
-          <div class="mycenter">
-            <button class="mybutton5" type="button" onclick="logvalidateForm()">Login</button>
+          <a href="#" class="text">Forgot password?</a>
+        </div>
+
+        <div class="mycenter">
+          <button class="mybutton5" type="button" onclick="logvalidateForm()">Login</button>
         </div>
         <!--
           <div class="input-field button">
             <input type="submit" onclick="logvalidateForm()" value="Login">
           </div>
           -->
-        </form>
+      </form>
 
-        <div class="login-signup">
-          <span class="text">Not a member?
-            <a href="#" class="text signup-link">Create New Account</a>
-          </span>
-        </div>
+      <div class="login-signup">
+        <span class="text">Not a member?
+          <a href="#" class="text signup-link">Create New Account</a>
+        </span>
       </div>
+    </div>
 
 
     <!-- Registration Form -->
@@ -114,8 +111,8 @@
           </div>
           <div class="mycenter">
             <button class="mybutton6" type="button" onclick="validateForm()">Create New Account</button>
-        </div>
-        <!--
+          </div>
+          <!--
           <div class="button">
             <input type="button" onclick="validateForm();" value="Signup">
           </div>
@@ -132,8 +129,15 @@
       </div>
     </div>
   </div>
-  <script src="Script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+
+  <script
+    src='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/Script1.js'>  </script>
+  <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js'>  </script>
+  <script>
+    loadUser(sessionStorage.getItem("jwt"));
+    checkJWT();
+    showhide();
+  </script>
 </body>
 
 </html>
