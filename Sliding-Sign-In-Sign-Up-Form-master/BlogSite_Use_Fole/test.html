@@ -1,143 +1,171 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
-    <link rel="stylesheet" href="style11.css">
-    <style>
-        .card-header {
-            background-color: #3f51b5;
-            color: white;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login and Signup Form</title>
 
-        .card {
-            margin-top: 5%;
-        }
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+  
+/* Add a background color and some padding to the login form */
+.login-form {
+  background-color: #fff;
+  padding: 20px;
+}
 
-        .form-control:focus {
-            border-color: #3f51b5;
-            box-shadow: none;
-        }
-    </style>
+/* Style the labels for the form inputs */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Style the form inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Style the login button */
+button[type=submit] {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Add media queries to make the form responsive */
+@media (max-width: 767px) {
+  /* Reduce the font size for the labels */
+  label {
+    font-size: 14px;
+  }
+  
+  /* Reduce the padding and font size for the form inputs */
+  input[type=text], input[type=password] {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  /* Make the login button full-width */
+  button[type=submit] {
+    width: 100%;
+  }
+}
+
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="text-center">Login</h4>
-                    </div>
-                    <div class="card-body">
-                        <form id="login-form" method="post">
-                            <div class="form-group">
-                                <label for="username">Username:</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block" onclick="login();">Login</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <script>
-        
-        function login() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  <form class="login-form">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password">
+    <button type="submit">Login</button>
+  </form>
 
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/login");
-  xhttp.setRequestHeader("Content-Type", "application/json");
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script>
 
-  xhttp.onreadystatechange = function () {
-    if (xhttp.readyState == 4) {
-      if (xhttp.status == 200) {
-        try {
-          const objects = JSON.parse(xhttp.responseText);
-          if (objects[0].status === "ok") {
-            sessionStorage.setItem("jwt", objects[0].user_id);
-            sessionStorage.setItem("user_type", objects[0].user_type);
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
 
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 2000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/login");
+      xhttp.setRequestHeader("Content-Type", "application/json");
+
+      xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4) {
+          if (xhttp.status == 200) {
+            try {
+              const objects = JSON.parse(xhttp.responseText);
+              if (objects[0].status === "ok") {
+                sessionStorage.setItem("jwt", objects[0].user_id);
+                sessionStorage.setItem("user_type", objects[0].user_type);
+
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                });
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Login Successful'
+                }).then(() => {
+                  // Redirect to index.html after 3 seconds
+                  setTimeout(() => {
+                    window.location.href = './new.html';
+                  }, 1000);
+                });
+              } else if (objects[0].status === "not_found") {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'User not found',
+                  text: 'The username you entered does not exist'
+                }).then(() => {
+                  // Clear the username and password fields
+                  document.getElementById("username").value = "";
+                  document.getElementById("password").value = "";
+                });
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Invalid Credentials',
+                  text: 'Username and password do not match'
+                }).then(() => {
+                  // Clear the username and password fields
+                  document.getElementById("username").value = "";
+                  document.getElementById("password").value = "";
+                });
               }
-            });
-            Toast.fire({
-              icon: 'success',
-              title: 'Login Successful'
-            }).then(() => {
-              // Redirect to index.html after 3 seconds
-              setTimeout(() => {
-                window.location.href = './new.html';
-              }, 1000);
-            });
-          } else if (objects[0].status === "not_found") {
-            Swal.fire({
-              icon: 'error',
-              title: 'User not found',
-              text: 'The username you entered does not exist'
-            }).then(() => {
-              // Clear the username and password fields
-              document.getElementById("username").value = "";
-              document.getElementById("password").value = "";
-            });
+            } catch (error) {
+              console.error(error);
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'There was an error with your request. Please try again later.'
+              });
+            }
           } else {
             Swal.fire({
               icon: 'error',
-              title: 'Invalid Credentials',
-              text: 'Username and password do not match'
-            }).then(() => {
-              // Clear the username and password fields
-              document.getElementById("username").value = "";
-              document.getElementById("password").value = "";
+              title: 'Error',
+              text: 'There was an error with your request. Please try again later.'
             });
           }
-        } catch (error) {
-          console.error(error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'There was an error with your request. Please try again later.'
-          });
         }
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'There was an error with your request. Please try again later.'
-        });
-      }
-    }
-  };
+      };
 
-  const data = {
-    "username": username,
-    "password": password,
-  };
+      const data = {
+        "username": username,
+        "password": password,
+      };
 
-  xhttp.send(JSON.stringify(data));
-  return false;
-};
+      xhttp.send(JSON.stringify(data));
+      return false;
+    };
 
-    </script>
+  </script>
 </body>
+
 </html>

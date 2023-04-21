@@ -1,5 +1,6 @@
 /* Login And SingUP Css Code...*/
-
+  
+    
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 .signup {
   display: none;
@@ -7,6 +8,7 @@
 
 
 body {
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,6 +17,7 @@ body {
 }
 
 .containerdiv {
+  padding: 12px;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
   background-color: #fff;
@@ -25,29 +28,26 @@ body {
 }
 
 .containerdiv .forms {
-
   border-radius: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
   transition: height 0.2s ease;
 }
 
 
 .containerdiv .form {
   border-radius: 20px;
- // width: 100%;
-  padding: 30px;
+  padding: 20px;
   background-color: #fff;
   transition: margin-left 0.18s ease;
 }
 
-.containerdiv .login {
- // max-width: 485px;
+.containerdiv .login{
+  max-width: 485px;
 }
 
-.containerdiv .signup {
- // max-width: 585px;
+.containerdiv .signup{
+  max-width: 585px;
 }
 
 .containerdiv .title {
@@ -74,19 +74,18 @@ body {
   margin: 10px 0 12px 0;
 }
 
-form .user-details .input-box {
+form .user-details .input-field {
   margin-bottom: 7px;
   width: calc(50% - 22px);
 }
 
-
-form .user-details .input-box span.details {
- // display: block;
+form .user-details .input-field span.details {
+  display: contents;
   font-weight: 500;
   margin-bottom: 5px;
 }
 
-.user-details .input-box input,
+.user-details .input-field input,
 .user-details select {
   height: 45px;
   width: 100%;
@@ -99,8 +98,8 @@ form .user-details .input-box span.details {
   transition: all 0.3s ease;
 }
 
-.user-details .input-box input:focus,
-.user-details .input-box input:valid {
+.user-details .input-field input:focus,
+.user-details .input-field input:valid {
   border-color: #9b59b6;
 }
 
@@ -137,8 +136,8 @@ form .user-details .input-box span.details {
   transition: all 0.2s ease;
 }
 
-.input-field input:focus~i,
-.input-field input:valid~i {
+.input-field input:focus ~ i,
+.input-field input:valid ~ i {
   color: #4070f4;
 }
 
@@ -153,100 +152,99 @@ form .user-details .input-box span.details {
 }
 
 
-.form .checkbox-text {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-.checkbox-text .checkbox-content {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox-content input {
-  margin-right: 10px;
-  accent-color: #4070f4;
-}
-
-form .button {
-  height: 45px;
-  margin: 10px 0
-}
-
-form .button input {
-  height: 100%;
-  width: 100%;
-  border-radius: 5px;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: linear-gradient(135deg, #71b7e6, #9b59b6);
-}
-
-form .button input:hover {
-  /* transform: scale(0.99); */
-  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
-}
-
-.button {
-  height: 100%;
-  width: 100%;
-  border-radius: 5px;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: linear-gradient(135deg, #71b7e6, #9b59b6);
-}
-
-.button :hover {
-  /* transform: scale(0.99); */
-  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
-}
-
-@media(max-width: 584px) {
-  .containerdiv {
-    max-width: 100%;
+  .form .checkbox-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
   }
 
-  form .user-details .input-box {
-    margin-bottom: 15px;
+  .checkbox-text .checkbox-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox-content input {
+    margin-right: 10px;
+    accent-color: #4070f4;
+  }
+
+  form .button {
+    height: 45px;
+    margin: 10px 0
+  }
+
+  form .button input {
+    height: 100%;
     width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
   }
 
-  form .category {
+  form .button input:hover {
+    /* transform: scale(0.99); */
+    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+  .button {
+    height: 100%;
     width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+  .button :hover {
+    /* transform: scale(0.99); */
+    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+  @media(max-width: 584px) {
+    .containerdiv {
+      max-width: 100%;
+    }
+
+    form .user-details .input-field {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    form .category {
+      width: 100%;
+    }
+/*
+    .content form .user-details {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+*/
+    .user-details::-webkit-scrollbar {
+      width: 5px;
+    }
   }
 
-  .content form .user-details {
-    max-height: 300px;
-    overflow-y: scroll;
+  @media(max-width: 459px) {
+    .containerdiv .content .category {
+      flex-direction: column;
+    }
   }
 
-  .user-details::-webkit-scrollbar {
-    width: 5px;
+  .login-signup {
+    margin-top: 30px;
+    text-align: center;
   }
-}
 
-@media(max-width: 459px) {
-  .containerdiv .content .category {
-    flex-direction: column;
-  }
-}
-
-.login-signup {
-  margin-top: 30px;
-  text-align: center;
-}
+  
 
 /* Card View Css Code...*/
 .card {
