@@ -17,7 +17,7 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
      crossorigin="anonymous" referrerpolicy="no-referrer" /> 
    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
    <link 
-     href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style4.css' 
+     href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style.css' 
      rel='stylesheet' /> 
  </head> 
   
@@ -138,7 +138,7 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
    </div> 
   
    <script 
-     src='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/Script1.js'>  </script> 
+     src='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/Script.js'>  </script> 
    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js'>  </script> 
    <script> 
      loadUser(sessionStorage.getItem("jwt")); 
