@@ -5,16 +5,24 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
 2.  Insert, Update, Delete, Login All Script In one File, HTML CSS JavaScript Faction
 
 
-  <div class="containerdiv"> 
-
-<style>
-<link href='https://github.com/jaber-it/Oracle_REST_Api/blob/main/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style.css'/>
-
-  <link  href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style.css' 
-     rel='stylesheet' />
-
-</style>
-
+<!DOCTYPE html> 
+ <!-- Created By CodingLab - www.codinglabweb.com --> 
+ <html lang="en" dir="ltr"> 
+  
+ <head> 
+   <meta charset="UTF-8"> 
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
+     integrity="sha512-/yVRLYEpX75KQ+oQQDptdrNAhZiEl1A1NwKjJK0vJEN95h99lF9fjK7z6xnlx5A5U6jnkU6rYSMhDzMK8HXdWg==" 
+     crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   <link 
+     href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style4.css' 
+     rel='stylesheet' /> 
+ </head> 
+  
+ <body> 
+   <div class="containerdiv"> 
      <!-- Registration Form --> 
      <div class="form login" id="loginForm"> 
        <span class="title">Login</span> 
@@ -46,7 +54,7 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
          </div> 
          <!-- 
            <div class="input-field button"> 
-             <input type="submit" onclick="logvalidateForm()" value="Login"/> 
+             <input type="submit" onclick="logvalidateForm()" value="Login"> 
            </div> 
            --> 
        </form> 
@@ -113,7 +121,7 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
            </div> 
            <!-- 
            <div class="button"> 
-             <input type="button" onclick="validateForm();" value="Signup"/> 
+             <input type="button" onclick="validateForm();" value="Signup"> 
            </div> 
  --> 
            <div class="login-signup"> 
@@ -136,4 +144,7 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
      loadUser(sessionStorage.getItem("jwt")); 
      checkJWT(); 
      showhide(); 
-   </script>
+   </script> 
+ </body> 
+  
+ </html>
