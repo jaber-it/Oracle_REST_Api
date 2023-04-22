@@ -46,7 +46,7 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
          </div> 
          <!-- 
            <div class="input-field button"> 
-             <input type="submit" onclick="logvalidateForm()" value="Login"> 
+             <input type="submit" onclick="logvalidateForm()" value="Login"/> 
            </div> 
            --> 
        </form> 
@@ -113,7 +113,7 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
            </div> 
            <!-- 
            <div class="button"> 
-             <input type="button" onclick="validateForm();" value="Signup"> 
+             <input type="button" onclick="validateForm();" value="Signup"/> 
            </div> 
  --> 
            <div class="login-signup"> 
