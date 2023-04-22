@@ -15,19 +15,45 @@
 
     <link href="home.css" rel="stylesheet">
     <style>
+        .img-topbar img {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgb(255, 255, 255);
+            height: 42px;
+            border-radius: 35px;
+            display: block;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 0px 12px rgb(109, 255, 18);
+        }
 
+        .img-topbar:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: auto;
+            height: auto;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .img-topbar:hover .overlay {
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-mynav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">My App</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="img-topbar">
+                <img id="avatar" src="' + item.avatar + '" alt="Profile picture">
+                <div class="overlay"></div>
+            </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
@@ -58,28 +84,38 @@
   </div>
 -->
 
-<div class="fullbody3">
-    <div class="card">
-        <div class="img-wrapper">
-            <img id="avatar" src="' + item.avatar + '" alt="Profile picture">
-            <div class="overlay"></div>
-        </div>
-        <div class="details">
-            <h2 id="full_name">Full Name</h2>
-            <div class="contact-info">
-                <ul>
-                    <li><i class="fas fa-phone-alt"></i> <span id="phone_number">Phone Number</span></li>
-                    <li><i class="fas fa-envelope"></i> <span id="email_address">Email Address</span></li>
-                </ul>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li id="login-logout-button-container"></li>
+        </ul>
+    </nav>
+    <h1>Welcome to My Blog</h1> <br><br>
+
+    <div class="fullbody3">
+        <div class="card">
+            <div class="img-wrapper">
+                <img id="avatar" src="' + item.avatar + '" alt="Profile picture">
+                <div class="overlay"></div>
+            </div>
+            <div class="details">
+                <h2 id="full_name">Full Name</h2>
+                <div class="contact-info">
+                    <ul>
+                        <li><i class="fas fa-phone-alt"></i> <span id="phone_number">Phone Number</span></li>
+                        <li><i class="fas fa-envelope"></i> <span id="email_address">Email Address</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mycenter">
+                <button class="mybutton5" type="button" onclick="logout()">LogOut</button>
+                <button class="mybutton6" type="button" onclick="logout()">LogOut</button>
             </div>
         </div>
-
-        <div class="mycenter">
-            <button class="mybutton5" type="button" onclick="logout()">LogOut</button>
-            <button class="mybutton6" type="button" onclick="logout()">LogOut</button>
-        </div>
     </div>
-</div>
 
 
     <div class="loginuser">
@@ -110,7 +146,8 @@
                         <a href="#"><i class="fab fa-dribbble"></i></a>
                     </div>
                 </div>
-                <button class="w-100 btn btn-lg btn-primary mt-3" type="submit" onclick=" window.location.href = './Home2.html'">Go Home- 2</button>
+                <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"
+                    onclick=" window.location.href = './Home2.html'">Go Home- 2</button>
                 <button class="w-100 btn btn-lg btn-primary mt-3" type="submit" onclick="goBack()">Go Back</button>
 
             </div>
@@ -136,26 +173,28 @@
 
     <script>
 
+
+        // Other JS Code....................
         const jwt = sessionStorage.getItem("jwt");
-        if (jwt == null) {
+    /*    if (jwt == null) {
             window.location.href = './login.html'
         }
-
+*/
         displayContent();
 
         function displayContent() {
-  const fullbodydiv = document.querySelector('.fullbody');
-  const fullbodydiv2 = document.querySelector('.fullbody2');
-  const jwt = sessionStorage.getItem("jwt");
+            const fullbodydiv = document.querySelector('.fullbody');
+            const fullbodydiv2 = document.querySelector('.fullbody2');
+            const jwt = sessionStorage.getItem("jwt");
 
-  if (jwt === null) {
-    fullbodydiv2.style.display = "block";
-    fullbodydiv.style.display = "none";
-  } else {
-    fullbodydiv.style.display = "block";
-    fullbodydiv2.style.display = "none";
-  }
-}
+            if (jwt === null) {
+                fullbodydiv2.style.display = "block";
+                fullbodydiv.style.display = "none";
+            } else {
+                fullbodydiv.style.display = "block";
+                fullbodydiv2.style.display = "none";
+            }
+        }
 
         function loadUser(jwt) {
             const xhttp = new XMLHttpRequest();

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+    <title>User Login</title>
+
+    <style>
+        #login-logout-container {
+            display: flex;
+            align-items: center;
+        }
+
+        #user-info-container {
+            display: flex;
+            align-items: center;
+        }
+
+        #avatar {
+            width: 37px;
+            height: 37px;
+            border-radius: 50%;
+            margin-right: 8px;
+            border: 1px solid rgb(255, 255, 255);
+            display: block;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 0px 12px rgb(109, 255, 18);
+        }
+
+        #fname {
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        #avatar:hover {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: auto;
+            height: auto;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #avatar:hover .overlay {
+            opacity: 1;
+        }
+
+        /*
+        .dropdown-menu.show {
+            display: block;
+        }
+*/
+        .dropdown-menu {
+            transform: translate(-21px, 26px);
+            position: absolute;
+            z-index: 1000;
+            display: none;
+            min-width: 10rem;
+            padding: 4px;
+            margin: 0;
+            font-size: 1rem;
+            color: #212529;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgb(255 120 120);
+            border-radius: 0.25rem;
+        }
+
+        .btn-check:focus+.btn,
+        .btn:focus {
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
+        }
+
+        .btndrop:hover {
+            transform: scale(1.1);
+            border: 1px solid rgb(190 162 162);
+            border-radius: 50%;
+            display: block;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 0px 2px rgb(255 120 120);
+        }
+
+        .btndrop {
+            padding: 0px 8px 0px 7px;
+            margin-left: 5px;
+        }
+
+        #login-logout-button {
+            outline: none;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 4px 28px;
+            cursor: pointer;
+            height: auto;
+            border-radius: 25px;
+            background-color: #277c12;
+            color: white;
+        }
+
+        #login-logout-button:hover {
+            background-color: #a10000;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <br><br><br>
+    <div id="login-logout-container">
+        <button id="login-logout-button" onclick="loginLogoutButtonClicked()">Login</button>
+        <div id="user-info-container" style="display: none">
+            <img id="avatar" src="' + item.avatar + '" alt="User IMG">
+            <span id="fname"></span>
+            <div class="dropdown">
+                <a class="btndrop dropdown-toggle" type="button" id="fname" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fname">
+                    <li><a class="dropdown-item" href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <br><br><br>
+
+
+    <button type="button" onclick="logout()">LogOut</button>
+
+
+    <script>
+        // function to display login/logout button
+        function displayLoginLogoutButton() {
+            const jwt = sessionStorage.getItem("jwt");
+            const userLoggedIn = false; // replace this with your own authentication logic to determine if the user is logged in or not
+
+            const loginLogoutButton = document.getElementById("login-logout-button");
+            const userInfoContainer = document.getElementById("user-info-container");
+
+            if (jwt !== null) {
+                const userAvatar = document.getElementById("avatar");
+                const userName = document.getElementById("fname");
+
+                // replace these lines with code that gets the user's avatar and name
+                //   userAvatar.src = "https://via.placeholder.com/32";
+                //   userName.innerText = "John Doe";
+
+                loginLogoutButton.innerText = "Logout";
+                loginLogoutButton.removeEventListener("click", loginClicked);
+                loginLogoutButton.addEventListener("click", logoutClicked);
+
+                loginLogoutButton.style.display = "none";
+                userInfoContainer.style.display = "flex";
+
+            } else {
+                loginLogoutButton.innerText = "Login";
+                loginLogoutButton.removeEventListener("click", logoutClicked);
+                loginLogoutButton.addEventListener("click", loginClicked);
+
+                loginLogoutButton.style.display = "flex";
+                userInfoContainer.style.display = "none";
+            }
+
+        }
+
+        function loginClicked() {
+            // replace this with your own login logic
+            console.log("Logging in...");
+            sessionStorage.setItem("jwt", "123456");
+            displayLoginLogoutButton();
+        }
+
+        function logoutClicked() {
+            // replace this with your own logout logic
+            console.log("Logging out...");
+            localStorage.clear();
+            sessionStorage.clear();
+            sessionStorage.removeItem("jwt");
+            displayLoginLogoutButton();
+        }
+
+        displayLoginLogoutButton();
+
+
+
+        function logout() {
+            localStorage.clear();
+            sessionStorage.clear();
+            sessionStorage.removeItem("jwt");
+            window.location.href = './login.html'
+        }
+
+
+        // User Data FNC
+        const jwt = sessionStorage.getItem("jwt");
+        function loadUser(jwt) {
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/UserInfo/" + jwt);
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.setRequestHeader("Authorization", jwt);
+            xhttp.send();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    const response = JSON.parse(this.responseText);
+                    console.log(response);
+                    if (response.items.length > 0) {
+                        const user = response.items[0];
+                        document.getElementById("fname").innerHTML = user.full_name;
+                        document.getElementById("avatar").src = user.pp_url;
+                        document.getElementById("username").innerHTML = user.username;
+                        document.getElementById("full_name").innerHTML = user.full_name;
+                        document.getElementById("phone_number").innerHTML = user.phone_number;
+                        document.getElementById("email_address").innerHTML = user.email_address;
+                        document.getElementById("pp_url").innerHTML = user.pp_url;
+                        document.getElementById("user_type").innerHTML = user.user_type;
+                        console.log(user.user_type);
+                    }
+                }
+            };
+        }
+
+        loadUser(jwt);
+    </script>
+
+</body>
+
+</html>

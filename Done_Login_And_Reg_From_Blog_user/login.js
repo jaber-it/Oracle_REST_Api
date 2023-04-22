@@ -27,7 +27,7 @@ function login() {
               toast: true,
               position: 'top-end',
               showConfirmButton: false,
-              timer: 2000,
+              timer: 1000,
               timerProgressBar: true,
               didOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -40,7 +40,7 @@ function login() {
             }).then(() => {
               // Redirect to index.html after 3 seconds
               setTimeout(() => {
-                window.location.href = './new.html';
+                window.location.href = './New_User_login_logout.html';
               }, 1000);
             });
           } else {

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+
+    <title>Example Function In Javascript That Demonstrates How To Add A User Login And Logout Functionality To Your
+        Website Or Blog</title>
+
+    <style>
+        #login-logout-button-container {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+            display: flex;
+            /* justify-content: right;  */
+        }
+
+
+        #login-button,
+        #logout-button {
+            outline: none;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 4px 28px;
+            cursor: pointer;
+            height: auto;
+            border-radius: 25px;
+        }
+
+        #login-button {
+            background-color: #277c12;
+            color: white;
+        }
+
+        #login-button:hover {
+            background-color: #a10000;
+            color: white;
+        }
+
+        #logout-button {
+            color: black;
+            background-color: #ffffff;
+        }
+
+        #logout-button:hover {
+            background-color: #ff0000;
+            color: white;
+        }
+
+        .topimg {
+            border: 1px solid white;
+            height: 45px;
+            border-radius: 35px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login-logout-button-container">
+        <button id="login-button">Login</button>
+
+        <div id="user-info-container" style="display: none">
+            <img id="avatar" src="' + item.avatar + '" alt="User IMG"/>
+            <span id="fname"></span>
+            <div class="dropdown">
+                <a class="btndrop dropdown-toggle" type="button" id="fname" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fname">
+                    <li><a class="dropdown-item" href="#" id="logout-button" type="button" onclick="logoutClicked()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function displayLoginLogoutButton() {
+            const jwt = sessionStorage.getItem("jwt")
+            const userLoggedIn = false; // replace this with your own authentication logic to determine if the user is logged in or not
+
+            const buttonContainer = document.getElementById("login-logout-button-container");
+            const userInfoContainer = document.getElementById("user-info-container");
+
+            if (jwt !== null) {
+
+                const logoutButton = document.createElement("button");
+                logoutButton.id = "logout-button";
+                logoutButton.innerText = "Logout";
+                logoutButton.addEventListener("click",
+                    function () {
+                        // replace this with your own logout logic
+                        localStorage.clear();
+                        sessionStorage.clear();
+                        sessionStorage.removeItem("jwt");
+
+                        //   alert("Logging out...");
+                        userLoggedIn = false;
+                        displayLoginLogoutButton();
+
+                    });
+                userInfoContainer.style.display = "flex";
+                buttonContainer.innerHTML = "";
+                buttonContainer.appendChild(userInfoContainer);
+
+            } else {
+                const loginButton = document.createElement("button");
+                loginButton.id = "login-button";
+                loginButton.innerText = "Login";
+                loginButton.addEventListener("click", function () {
+                    // replace this with your own login logic
+                    loginClicked();
+                 //   alert("Logging in...");
+                  //  userLoggedIn = true;
+                  //  displayLoginLogoutButton();
+                });
+
+                buttonContainer.innerHTML = "";
+                buttonContainer.appendChild(loginButton);
+            }
+        }
+
+        displayLoginLogoutButton();
+
+        function loginClicked() {
+            // replace this with your own login logic
+            sessionStorage.setItem("jwt", "961");
+                    alert("Logging in...");
+               //     userLoggedIn = true;
+                    displayLoginLogoutButton();
+        }
+
+        function logoutClicked() {
+            // replace this with your own logout logic
+            alert("Logging out...");
+            localStorage.clear();
+            sessionStorage.clear();
+            sessionStorage.removeItem("jwt");
+            displayLoginLogoutButton();
+        }
+
+        const jwt = sessionStorage.getItem("jwt");
+        function loadUser(jwt) {
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/UserInfo/" + jwt);
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.setRequestHeader("Authorization", jwt);
+            xhttp.send();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    const response = JSON.parse(this.responseText);
+                    console.log(response);
+                    if (response.items.length > 0) {
+                        const user = response.items[0];
+                        document.getElementById("fname").innerHTML = user.full_name;
+                        document.getElementById("avatar").src = user.pp_url;
+                        document.getElementById("username").innerHTML = user.username;
+                        document.getElementById("full_name").innerHTML = user.full_name;
+                        document.getElementById("phone_number").innerHTML = user.phone_number;
+                        document.getElementById("email_address").innerHTML = user.email_address;
+                        document.getElementById("pp_url").innerHTML = user.pp_url;
+                        document.getElementById("user_type").innerHTML = user.user_type;
+                        console.log(user.user_type);
+                    }
+                }
+            };
+        }
+
+        loadUser(jwt);
+
+        /* Right Code Only Button.................
+  function displayLoginLogoutButton() {
+            const jwt = sessionStorage.getItem(&quot;jwt&quot;)
+            const userLoggedIn = false; // replace this with your own authentication logic to determine if the user is logged in or not
+
+            const buttonContainer = document.getElementById(&quot;login-logout-button-container&quot;);
+
+            if (jwt !== null) {
+
+                const logoutButton = document.createElement(&quot;button&quot;);
+                logoutButton.id = &quot;logout-button&quot;;
+                logoutButton.innerText = &quot;Log-Out&quot;;
+                logoutButton.addEventListener(&quot;click&quot;,
+                    function () {
+                        // replace this with your own logout logic
+                        localStorage.clear();
+                        sessionStorage.clear();
+                        sessionStorage.removeItem(&quot;jwt&quot;);
+         				 window.history.back();
+
+                        //   alert(&quot;Logging out...&quot;);
+                        userLoggedIn = false;
+                        displayLoginLogoutButton();
+                    });
+
+                buttonContainer.innerHTML = &quot;&quot;;
+                buttonContainer.appendChild(logoutButton);
+            } else {
+                const loginButton = document.createElement(&quot;button&quot;);
+                loginButton.id = &quot;login-button&quot;;
+                loginButton.innerText = &quot;Log-in&quot;;
+                loginButton.addEventListener(&quot;click&quot;, function () {
+                    // replace this with your own login logic
+                    //logvalidateForm();
+                    //  alert(&quot;Logging in...&quot;);
+            window.location.href = &#39;https://newblogposttestsite.blogspot.com/p/dd.html&#39;;
+        
+                    userLoggedIn = true;
+                    displayLoginLogoutButton();
+                });
+
+                buttonContainer.innerHTML = &quot;&quot;;
+                buttonContainer.appendChild(loginButton);
+            }
+        }
+
+        displayLoginLogoutButton();
+        */
+    </script>
+</body>
+
+</html>
