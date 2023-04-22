@@ -6,6 +6,9 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
 
 https://github.com/jaber-it/Oracle_REST_Api/blob/main/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style.css
 
+  <link
+     href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style.css' 
+     rel='stylesheet' />
 
   <div class="containerdiv"> 
      <!-- Registration Form --> 
