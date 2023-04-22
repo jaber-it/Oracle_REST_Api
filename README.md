@@ -19,7 +19,9 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
    <link 
      href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style.css' 
      rel='stylesheet' /> 
-<style>
+
+ </head> 
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap'); 
  .signup { 
    display: none; 
@@ -357,8 +359,6 @@ Oracle REST API Use Insert, Update, Delete, Login All Script In one File, HTML C
    padding: 8px; 
  }
 </style>
- </head> 
-  
  <body> 
    <div class="containerdiv"> 
      <!-- Registration Form --> 
