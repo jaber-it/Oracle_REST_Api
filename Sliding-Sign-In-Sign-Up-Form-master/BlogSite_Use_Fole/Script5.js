@@ -35,19 +35,25 @@ imageUrlInput.addEventListener('input', displayImage);
 checkJWT();
 showhide();
 
-function checkJWT() {
-    const fullbodydiv = document.querySelector('.fullbody');
-    const fullbodydiv2 = document.querySelector('.fullbody2');
-    const jwt = sessionStorage.getItem('jwt');
 
-    if (jwt === null) {
-        fullbodydiv2.style.display = 'block';
-        fullbodydiv.style.display = 'none';
-    } else {
-        checkLoggedIn();
-        fullbodydiv.style.display = 'block';
-        fullbodydiv2.style.display = 'none';
-    }
+function checkJWT() {
+  const fullbodydiv = document.querySelector('.fullbody');
+  const fullbodydiv2 = document.querySelector('.fullbody2');
+  const jwt = sessionStorage.getItem('jwt');
+
+  if (jwt === null) {
+    loginLogoutButton.innerText = 'Login';
+    userInfoContainer.style.display = 'none';
+    fullbodydiv2.style.display = 'block';
+    fullbodydiv.style.display = 'none';
+  } else {
+    loadUser(jwt);
+    loginLogoutButton.style.display = 'none';
+    loginLogoutButton.innerText = 'Logout';
+    userInfoContainer.style.display = 'flex';
+    fullbodydiv.style.display = 'block';
+    fullbodydiv2.style.display = 'none';
+  }
 };
 
 function logout() {
@@ -103,6 +109,7 @@ function logvalidateForm() {
 };
 
 function checkUser() {
+     showLoading();
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const Toast = Swal.mixin({
@@ -128,6 +135,7 @@ function checkUser() {
                     if (user) {
                         if (user.password === password) {
                             login(username, password);
+                             hideLoading();
                         } else {
 
 
