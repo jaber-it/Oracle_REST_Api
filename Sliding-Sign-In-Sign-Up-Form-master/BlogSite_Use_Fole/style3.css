@@ -187,7 +187,7 @@ form .input-field span.details {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 23px;
     border: 1px solid #491e1e;
     border-radius: 30px;
     box-shadow: 7px 7px 10px rgb(33 2 2 / 64%);
@@ -336,7 +336,7 @@ h2 {
 }
 
 .fullbody2 {
-    padding: 8px;
+    padding: 30px;
 }
 
 
