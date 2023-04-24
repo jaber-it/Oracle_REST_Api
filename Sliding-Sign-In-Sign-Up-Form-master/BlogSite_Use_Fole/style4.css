@@ -332,7 +332,7 @@ h2 {
 
 .fullbody {
     display: none;
-    padding: 8px;
+    padding: 32px;
 }
 
 .fullbody2 {
@@ -426,12 +426,12 @@ h2 {
 }
 
 #login-logout-button {
-    background-color: #277c12;
-    color: white;
+    background-color: #ffffff;
+    color: #ff5454;
 }
 
 #login-logout-button:hover {
-    background-color: #a10000;
+    background-color: #00a192;
     color: white;
 }
 
