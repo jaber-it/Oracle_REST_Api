@@ -449,6 +449,7 @@ function hideLoading() {
 
 // Chack User Login Info..
 function checkLoggedIn() {
+    const jwt = sessionStorage.getItem("jwt");
     const loginLogoutButton = document.getElementById('login-logout-button');
     const userInfoContainer = document.getElementById('user-info-container');
     const avatar2 = document.getElementById('avatar2');
@@ -456,7 +457,7 @@ function checkLoggedIn() {
     const arrowIcon = document.getElementById('arrow-icon');
     const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
     if (jwt !== null) {
-        loadUser(sessionStorage.getItem("jwt"));
+        loadUser(jwt);
         loginLogoutButton.style.display = 'none';
         loginLogoutButton.innerText = 'Logout';
         userInfoContainer.style.display = 'flex';
