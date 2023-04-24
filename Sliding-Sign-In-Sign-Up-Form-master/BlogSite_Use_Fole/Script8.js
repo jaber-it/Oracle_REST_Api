@@ -3,10 +3,7 @@ const loginForm = document.querySelector('.form.login');
 const signupForm = document.querySelector('.form.signup');
 const loginLink = document.querySelector('.login-link');
 const signupLink = document.querySelector('.signup-link');
-const loginLogoutButton = document.getElementById('login-logout-button');
-const userInfoContainer = document.getElementById('user-info-container');
-const avatar2 = document.getElementById('avatar2');
-const fname2 = document.getElementById('fname2');
+
 const arrowIcon = document.getElementById('arrow-icon');
 const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
 const jwt = sessionStorage.getItem("jwt");
