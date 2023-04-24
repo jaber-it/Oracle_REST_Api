@@ -37,6 +37,12 @@ showhide();
 
 
 function checkJWT() {
+    const loginLogoutButton = document.getElementById('login-logout-button');
+const userInfoContainer = document.getElementById('user-info-container');
+const avatar2 = document.getElementById('avatar2');
+const fname2 = document.getElementById('fname2');
+const arrowIcon = document.getElementById('arrow-icon');
+const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
   const fullbodydiv = document.querySelector('.fullbody');
   const fullbodydiv2 = document.querySelector('.fullbody2');
   const jwt = sessionStorage.getItem('jwt');
