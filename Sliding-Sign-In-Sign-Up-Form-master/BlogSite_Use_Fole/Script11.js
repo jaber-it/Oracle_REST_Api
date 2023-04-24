@@ -3,78 +3,62 @@ const loginForm = document.querySelector('.form.login');
 const signupForm = document.querySelector('.form.signup');
 const loginLink = document.querySelector('.login-link');
 const signupLink = document.querySelector('.signup-link');
-
+const loginLogoutButton = document.getElementById('login-logout-button');
+const userInfoContainer = document.getElementById('user-info-container');
+const avatar2 = document.getElementById('avatar2');
+const fname2 = document.getElementById('fname2');
 const arrowIcon = document.getElementById('arrow-icon');
 const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
 const jwt = sessionStorage.getItem("jwt");
-
-loginLink.addEventListener('click', function () {
+loginLink.addEventListener('click', function() {
     loginForm.style.display = 'block';
     signupForm.style.display = 'none';
 });
-
-signupLink.addEventListener('click', function () {
+signupLink.addEventListener('click', function() {
     signupForm.style.display = 'block';
     loginForm.style.display = 'none';
 });
-
 // Get the image URL input element
 const imageUrlInput = document.getElementById('avatar');
 const imgdesply = document.getElementById("imagecontainerdiv");
-
 function displayImage() {
     const imageUrl = imageUrlInput.value;
     imagecontainerdiv.innerHTML = `<img src="${imageUrl}" style="max-width: 114px; border-radius: 10px; height: 65px;">`;
 }
-
 // Add an event listener to the image URL input box
 imageUrlInput.addEventListener('input', displayImage);
 checkJWT();
 showhide();
-
-
 function checkJWT() {
+    const loginLogoutButton = document.getElementById('login-logout-button');
+    const userInfoContainer = document.getElementById('user-info-container');
+    const avatar2 = document.getElementById('avatar2');
+    const fname2 = document.getElementById('fname2');
+    const arrowIcon = document.getElementById('arrow-icon');
+    const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
     const fullbodydiv = document.querySelector('.fullbody');
     const fullbodydiv2 = document.querySelector('.fullbody2');
     const jwt = sessionStorage.getItem('jwt');
-
     if (jwt === null) {
+        loginLogoutButton.innerText = 'Login';
+        userInfoContainer.style.display = 'none';
         fullbodydiv2.style.display = 'block';
         fullbodydiv.style.display = 'none';
     } else {
-        checkLoggedIn();
+        loadUser(jwt);
+        loginLogoutButton.style.display = 'none';
+        loginLogoutButton.innerText = 'Logout';
+        userInfoContainer.style.display = 'flex';
         fullbodydiv.style.display = 'block';
         fullbodydiv2.style.display = 'none';
     }
 };
-
-
-        function checkLoggedIn() {
-            const loginLogoutButton = document.getElementById('login-logout-button');
-            const userInfoContainer = document.getElementById('user-info-container');
-            const avatar2 = document.getElementById('avatar2');
-            const fname2 = document.getElementById('fname2');
-            const arrowIcon = document.getElementById('arrow-icon');
-            const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
-            if (jwt !== null) {
-                loadUser(jwt);
-                loginLogoutButton.style.display = 'none';
-                loginLogoutButton.innerText = 'Logout';
-                userInfoContainer.style.display = 'flex';
-            } else {
-                loginLogoutButton.innerText = 'Login';
-                userInfoContainer.style.display = 'none';
-            }
-        }
-
-
 function logout() {
     localStorage.clear();
     sessionStorage.clear();
     sessionStorage.removeItem("jwt");
     window.location.reload(1);
 };
-
 function showhide() {
     const user_type = sessionStorage.getItem("user_type");
     if (user_type === "4" || user_type === "1") {
@@ -83,8 +67,6 @@ function showhide() {
         document.querySelector(".loginuser").classList.add("hide");
     }
 };
-
-
 function logvalidateForm() {
     var Toast = Swal.mixin({
         toast: true,
@@ -99,11 +81,10 @@ function logvalidateForm() {
     });
     var usernameInput = document.getElementById("username");
     var passwordInput = document.getElementById("password");
-
     if (usernameInput.value === "") {
         Toast.fire({
             icon: 'error',
-            title: 'Please enter a username'// 'Username is required',
+            title: 'Please enter a username' // 'Username is required',
             //text: 'Please enter a username'
         });
         return false;
@@ -116,12 +97,10 @@ function logvalidateForm() {
         });
         return false;
     }
-
     checkUser();
 };
-
 function checkUser() {
-     showLoading();
+    showLoading();
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const Toast = Swal.mixin({
@@ -137,8 +116,7 @@ function checkUser() {
     });
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/view");
-
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4) {
             if (xhttp.status == 200) {
                 try {
@@ -147,10 +125,8 @@ function checkUser() {
                     if (user) {
                         if (user.password === password) {
                             login(username, password);
-                             hideLoading();
+                            hideLoading();
                         } else {
-
-
                             Toast.fire({
                                 icon: 'error',
                                 title: 'Username and password do not match',
@@ -181,11 +157,8 @@ function checkUser() {
             }
         }
     };
-
     xhttp.send();
 }
-
-
 function login(username, password) {
     const Toast = Swal.mixin({
         toast: true,
@@ -201,8 +174,7 @@ function login(username, password) {
     const xhr2 = new XMLHttpRequest();
     xhr2.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/login");
     xhr2.setRequestHeader("Content-Type", "application/json");
-
-    xhr2.onreadystatechange = function () {
+    xhr2.onreadystatechange = function() {
         if (xhr2.readyState == 4) {
             if (xhr2.status == 200) {
                 try {
@@ -210,7 +182,6 @@ function login(username, password) {
                     if (objects[0].status === "ok") {
                         sessionStorage.setItem("jwt", objects[0].user_id);
                         sessionStorage.setItem("user_type", objects[0].user_type);
-
                         Toast.fire({
                             icon: 'success',
                             title: 'Login Successful'
@@ -249,18 +220,13 @@ function login(username, password) {
             }
         }
     };
-
     const data = {
         "username": username,
         "password": password,
     };
-
     xhr2.send(JSON.stringify(data));
     return false;
 };
-
-
-
 function validateForm() {
     var Toast = Swal.mixin({
         toast: true,
@@ -277,7 +243,6 @@ function validateForm() {
     var phonenumber = document.getElementById("phonenumber");
     var usernameInput = document.getElementById("usernamereg");
     var passwordInput = document.getElementById("passwordreg");
-
     if (emailaddress.value === "") {
         Toast.fire({
             icon: 'error',
@@ -297,7 +262,7 @@ function validateForm() {
     if (usernameInput.value === "") {
         Toast.fire({
             icon: 'error',
-            title: 'Please enter a username'// 'Username is required',
+            title: 'Please enter a username' // 'Username is required',
             //text: 'Please enter a username'
         });
         return false;
@@ -310,10 +275,8 @@ function validateForm() {
         });
         return false;
     }
-
     insert_api_Data();
 };
-
 function insert_api_Data() {
     var Toast = Swal.mixin({
         toast: true,
@@ -335,12 +298,10 @@ function insert_api_Data() {
     var genderInput = document.getElementById("gender");
     var loginForm = document.getElementById("loginForm");
     var signupForm = document.getElementById("signupForm");
-
     // Check if username, email, and phone number already exist
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/view", true);
-
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
@@ -348,7 +309,6 @@ function insert_api_Data() {
                 var usernameExists = false;
                 var emailExists = false;
                 var phoneExists = false;
-
                 for (var i = 0; i < items.length; i++) {
                     if (items[i].username === usernameInput.value) {
                         usernameExists = true;
@@ -395,8 +355,7 @@ function insert_api_Data() {
                     var xhr2 = new XMLHttpRequest();
                     xhr2.open("POST", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/insert", true);
                     xhr2.setRequestHeader('Content-Type', 'application/json');
-
-                    xhr2.onreadystatechange = function () {
+                    xhr2.onreadystatechange = function() {
                         if (xhr2.readyState === 4) {
                             if (xhr2.status === 200) {
                                 var response = xhr2.responseText;
@@ -432,8 +391,6 @@ function insert_api_Data() {
     };
     xhr.send();
 };
-
-
 //loadUser(sessionStorage.getItem("jwt"));
 function loadUser(jwt) {
     showLoading();
@@ -442,7 +399,7 @@ function loadUser(jwt) {
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.setRequestHeader("Authorization", jwt);
     xhttp.send();
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
             const response = JSON.parse(this.responseText);
             console.log(response);
@@ -460,18 +417,15 @@ function loadUser(jwt) {
         hideLoading();
     };
 }
-
 function showLoading() {
     document.getElementById("loading-overlay").style.display = "block";
-    setTimeout(function () {
+    setTimeout(function() {
         refreshIcon.style.display = "none";
     }, 10000);
 };
-
 function hideLoading() {
     document.getElementById("loading-overlay").style.display = "none";
 };
-
 // Chack User Login Info..
 function checkLoggedIn() {
     const jwt = sessionStorage.getItem("jwt");
@@ -485,7 +439,6 @@ function checkLoggedIn() {
         userInfoContainer.style.display = 'none';
     }
 };
-
 // Function to toggle the logout dropdown menu
 function toggleLogoutDropdown() {
     const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
