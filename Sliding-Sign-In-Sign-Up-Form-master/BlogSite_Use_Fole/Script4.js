@@ -3,6 +3,12 @@ const loginForm = document.querySelector('.form.login');
 const signupForm = document.querySelector('.form.signup');
 const loginLink = document.querySelector('.login-link');
 const signupLink = document.querySelector('.signup-link');
+const loginLogoutButton = document.getElementById('login-logout-button');
+const userInfoContainer = document.getElementById('user-info-container');
+const avatar2 = document.getElementById('avatar2');
+const fname2 = document.getElementById('fname2');
+const arrowIcon = document.getElementById('arrow-icon');
+const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
 const jwt = sessionStorage.getItem("jwt");
 
 loginLink.addEventListener('click', function () {
@@ -26,7 +32,6 @@ function displayImage() {
 
 // Add an event listener to the image URL input box
 imageUrlInput.addEventListener('input', displayImage);
-checkLoggedIn();
 checkJWT();
 showhide();
 
@@ -450,12 +455,6 @@ function hideLoading() {
 // Chack User Login Info..
 function checkLoggedIn() {
     const jwt = sessionStorage.getItem("jwt");
-    const loginLogoutButton = document.getElementById('login-logout-button');
-    const userInfoContainer = document.getElementById('user-info-container');
-    const avatar2 = document.getElementById('avatar2');
-    const fname2 = document.getElementById('fname2');
-    const arrowIcon = document.getElementById('arrow-icon');
-    const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
     if (jwt !== null) {
         loadUser(jwt);
         loginLogoutButton.style.display = 'none';
