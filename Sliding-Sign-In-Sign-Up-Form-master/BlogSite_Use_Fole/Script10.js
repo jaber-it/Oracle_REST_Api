@@ -49,24 +49,23 @@ function checkJWT() {
 };
 
 
-function checkLoggedIn() {
-    const jwt = sessionStorage.getItem("jwt");
-    const loginLogoutButton = document.getElementById('login-logout-button');
-    const userInfoContainer = document.getElementById('user-info-container');
-    const avatar2 = document.getElementById('avatar2');
-    const fname2 = document.getElementById('fname2');
-    const arrowIcon = document.getElementById('arrow-icon');
-    const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
-    if (jwt !== null) {
-        loadUser(jwt);
-        loginLogoutButton.style.display = 'none';
-        loginLogoutButton.innerText = 'Logout';
-        userInfoContainer.style.display = 'flex';
-    } else {
-        loginLogoutButton.innerText = 'Login';
-        userInfoContainer.style.display = 'none';
-    }
-};
+        function checkLoggedIn() {
+            const loginLogoutButton = document.getElementById('login-logout-button');
+            const userInfoContainer = document.getElementById('user-info-container');
+            const avatar2 = document.getElementById('avatar2');
+            const fname2 = document.getElementById('fname2');
+            const arrowIcon = document.getElementById('arrow-icon');
+            const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
+            if (jwt !== null) {
+                loadUser(jwt);
+                loginLogoutButton.style.display = 'none';
+                loginLogoutButton.innerText = 'Logout';
+                userInfoContainer.style.display = 'flex';
+            } else {
+                loginLogoutButton.innerText = 'Login';
+                userInfoContainer.style.display = 'none';
+            }
+        }
 
 
 function logout() {
