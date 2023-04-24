@@ -342,7 +342,6 @@ h2 {
 
 #login-logout-container {
     max-width:160px;
-    width: 100%;
     display: flex;
     align-items: center;
 }
