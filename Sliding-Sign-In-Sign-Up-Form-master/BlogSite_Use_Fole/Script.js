@@ -3,6 +3,12 @@ const loginForm = document.querySelector('.form.login');
 const signupForm = document.querySelector('.form.signup');
 const loginLink = document.querySelector('.login-link');
 const signupLink = document.querySelector('.signup-link');
+const loginLogoutButton = document.getElementById('login-logout-button');
+const userInfoContainer = document.getElementById('user-info-container');
+const avatar2 = document.getElementById('avatar2');
+const fname2 = document.getElementById('fname2');
+const arrowIcon = document.getElementById('arrow-icon');
+const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
 const jwt = sessionStorage.getItem("jwt");
 
 loginLink.addEventListener('click', function () {
@@ -26,9 +32,6 @@ function displayImage() {
 
 // Add an event listener to the image URL input box
 imageUrlInput.addEventListener('input', displayImage);
-
-
-loadUser(sessionStorage.getItem("jwt"));
 checkJWT();
 showhide();
 
@@ -38,13 +41,20 @@ function checkJWT() {
   const jwt = sessionStorage.getItem('jwt');
 
   if (jwt === null) {
+    loginLogoutButton.innerText = 'Login';
+    userInfoContainer.style.display = 'none';
     fullbodydiv2.style.display = 'block';
     fullbodydiv.style.display = 'none';
   } else {
+    loadUser(jwt);
+    loginLogoutButton.style.display = 'none';
+    loginLogoutButton.innerText = 'Logout';
+    userInfoContainer.style.display = 'flex';
     fullbodydiv.style.display = 'block';
     fullbodydiv2.style.display = 'none';
   }
 };
+
 
 function logout() {
   localStorage.clear();
@@ -99,6 +109,7 @@ function logvalidateForm() {
 };
 
 function checkUser() {
+  showLoading();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   const Toast = Swal.mixin({
@@ -125,8 +136,7 @@ function checkUser() {
             if (user.password === password) {
               login(username, password);
             } else {
-
-
+              hideLoading();
               Toast.fire({
                 icon: 'error',
                 title: 'Username and password do not match',
@@ -193,7 +203,7 @@ function login(username, password) {
             }).then(() => {
               // Redirect to index.html after 3 seconds
               setTimeout(() => {
-               // window.location.href = './new.html';
+                // window.location.href = './new.html';
                 window.history.back();
               }, 1000);
             });
@@ -230,7 +240,7 @@ function login(username, password) {
     "username": username,
     "password": password,
   };
-
+  hideLoading();
   xhr2.send(JSON.stringify(data));
   return false;
 };
@@ -412,6 +422,7 @@ function insert_api_Data() {
 
 //loadUser(sessionStorage.getItem("jwt"));
 function loadUser(jwt) {
+  showLoading();
   const xhttp = new XMLHttpRequest();
   xhttp.open("GET", "https://apex.oracle.com/pls/apex/my_stock/BLOG_SITE_USERS/UserInfo/" + jwt);
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -425,11 +436,36 @@ function loadUser(jwt) {
         const user = response.items[0];
         document.getElementById("avatar").src = user.pp_url;
         document.getElementById("full_name").innerHTML = user.full_name;
+        document.getElementById("avatar2").src = user.pp_url;
+        document.getElementById("fname2").innerHTML = user.full_name;
         document.getElementById("phone_number").innerHTML = user.phone_number;
         document.getElementById("email_address").innerHTML = user.email_address;
         document.getElementById("user_type").innerHTML = user.user_type;
       }
     }
+    hideLoading();
   };
+}
+
+function showLoading() {
+  document.getElementById("loading-overlay").style.display = "block";
+  setTimeout(function () {
+    refreshIcon.style.display = "none";
+  }, 10000);
 };
 
+function hideLoading() {
+  document.getElementById("loading-overlay").style.display = "none";
+};
+
+// Function to toggle the logout dropdown menu
+function toggleLogoutDropdown() {
+  const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
+  if (logoutDropdownMenu.style.display === 'block') {
+    logoutDropdownMenu.style.display = 'none';
+    arrowIcon.classList.remove('fa-sign-down');
+  } else {
+    logoutDropdownMenu.style.display = 'block';
+    arrowIcon.classList.add('fa-sign-down');
+  }
+};

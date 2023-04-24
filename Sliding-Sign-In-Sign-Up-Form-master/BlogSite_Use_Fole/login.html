@@ -9,12 +9,20 @@
     integrity="sha512-/yVRLYEpX75KQ+oQQDptdrNAhZiEl1A1NwKjJK0vJEN95h99lF9fjK7z6xnlx5A5U6jnkU6rYSMhDzMK8HXdWg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
   <link
     href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style.css'
     rel='stylesheet' />
+-->
+  <link href='style.css' rel='stylesheet' />
 </head>
 
 <body>
+
+  <div id="loading-overlay">
+    <div id="loading-icon"></div>
+  </div>
+
   <div class="containerdiv">
     <!-- Registration Form -->
     <div class="form login" id="loginForm">
@@ -129,15 +137,12 @@
       </div>
     </div>
   </div>
-
+<!--
   <script
     src='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/Script.js'>  </script>
-  <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js'>  </script>
-  <script>
-    loadUser(sessionStorage.getItem("jwt"));
-    checkJWT();
-    showhide();
-  </script>
+  -->
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js'>  </script>
+  <script src="Script.js">  </script>
 </body>
 
 </html>
