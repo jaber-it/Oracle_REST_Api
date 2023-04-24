@@ -26,7 +26,7 @@ function displayImage() {
 
 // Add an event listener to the image URL input box
 imageUrlInput.addEventListener('input', displayImage);
-
+checkLoggedIn();
 checkJWT();
 showhide();
 
