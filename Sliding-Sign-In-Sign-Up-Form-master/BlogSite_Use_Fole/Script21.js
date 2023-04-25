@@ -12,7 +12,7 @@ const fullbodydiv = document.querySelector('.fullbody');
 const fullbodydiv2 = document.querySelector('.fullbody2');
 const jwt = sessionStorage.getItem("jwt");
 document.getElementById('avatar2').src = sessionStorage.getItem("pp_url");
-document.getElementById('avatar2')sessionStorage.getItem("pp_url");
+document.getElementById('avatar2').src = sessionStorage.getItem("pp_url");
 
 
 loginLink.addEventListener('click', function () {
