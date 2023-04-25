@@ -7,12 +7,11 @@ const loginLogoutButton = document.getElementById('login-logout-button');
 const userInfoContainer = document.getElementById('user-info-container');
 const arrowIcon = document.getElementById('arrow-icon');
 const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
-const fname2 = document.getElementById('fname2');
 const fullbodydiv = document.querySelector('.fullbody');
 const fullbodydiv2 = document.querySelector('.fullbody2');
 const jwt = sessionStorage.getItem("jwt");
 document.getElementById('avatar2').src = sessionStorage.getItem("pp_url");
-document.getElementById('avatar2').src = sessionStorage.getItem("pp_url");
+document.getElementById('avatar3').src = sessionStorage.getItem("pp_url");
 
 
 loginLink.addEventListener('click', function () {
@@ -433,9 +432,9 @@ function loadUser(jwt) {
       console.log(response);
       if (response.items.length > 0) {
         const user = response.items[0];
-    //    document.getElementById("avatar3").src = user.pp_url; 
+        document.getElementById("avatar3").src = user.pp_url; 
         document.getElementById("full_name").innerHTML = user.full_name;
-   //     document.getElementById("avatar2").src = user.pp_url;
+        document.getElementById("avatar2").src = user.pp_url;
         document.getElementById("fname2").innerHTML = user.full_name;
         document.getElementById("phone_number").innerHTML = user.phone_number;
         document.getElementById("email_address").innerHTML = user.email_address;
