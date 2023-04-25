@@ -1,4 +1,3 @@
-
 const loginForm = document.querySelector('.form.login');
 const signupForm = document.querySelector('.form.signup');
 const loginLink = document.querySelector('.login-link');
@@ -7,7 +6,10 @@ const loginLogoutButton = document.getElementById('login-logout-button');
 const userInfoContainer = document.getElementById('user-info-container');
 const arrowIcon = document.getElementById('arrow-icon');
 const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
+const fullbodydiv = document.querySelector('.fullbody');
+const fullbodydiv2 = document.querySelector('.fullbody2');
 const jwt = sessionStorage.getItem("jwt");
+
 loginLink.addEventListener('click', function() {
     loginForm.style.display = 'block';
     signupForm.style.display = 'none';
@@ -28,16 +30,6 @@ imageUrlInput.addEventListener('input', displayImage);
 checkJWT();
 showhide();
 function checkJWT() {
-    const loginLogoutButton = document.getElementById('login-logout-button');
-    const userInfoContainer = document.getElementById('user-info-container');
-    const avatar = document.getElementById('avatar');
-    const avatar2 = document.getElementById('avatar2');
-    const fname2 = document.getElementById('fname2');
-    const arrowIcon = document.getElementById('arrow-icon');
-    const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
-    const fullbodydiv = document.querySelector('.fullbody');
-    const fullbodydiv2 = document.querySelector('.fullbody2');
-    const jwt = sessionStorage.getItem('jwt');
     if (jwt === null) {
         loginLogoutButton.innerText = 'Login';
         userInfoContainer.style.display = 'none';
