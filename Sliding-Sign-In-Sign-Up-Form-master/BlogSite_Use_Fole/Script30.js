@@ -33,27 +33,21 @@ showhide();
 function checkJWT() {
     const fullbodydiv = document.querySelector('.fullbody');
     const fullbodydiv2 = document.querySelector('.fullbody2');
-    const jwt = sessionStorage.getItem('jwt');
-    if (jwt === null) {
-        fullbodydiv2.style.display = 'block';
-        fullbodydiv.style.display = 'none';
-    } else {
-        checkLoggedIn();
-        fullbodydiv.style.display = 'block';
-        fullbodydiv2.style.display = 'none';
-    }
+  if (jwt === null) {
+    loginLogoutButton.innerText = 'Login';
+    userInfoContainer.style.display = 'none';
+    fullbodydiv2.style.display = 'block';
+    fullbodydiv.style.display = 'none';
+  } else {
+    loadUser(jwt);
+    loginLogoutButton.style.display = 'none';
+    loginLogoutButton.innerText = 'Logout';
+    userInfoContainer.style.display = 'flex';
+    fullbodydiv.style.display = 'block';
+    fullbodydiv2.style.display = 'none';
+  }
 };
-function checkLoggedIn() {
-    if (jwt !== null) {
-        loadUser(jwt);
-        loginLogoutButton.style.display = 'none';
-        loginLogoutButton.innerText = 'Logout';
-        userInfoContainer.style.display = 'flex';
-    } else {
-        loginLogoutButton.innerText = 'Login';
-        userInfoContainer.style.display = 'none';
-    }
-};
+
 function logout() {
     localStorage.clear();
     sessionStorage.clear();
