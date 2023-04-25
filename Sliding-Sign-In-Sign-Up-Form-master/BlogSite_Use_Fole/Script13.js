@@ -100,7 +100,6 @@ function logvalidateForm() {
     checkUser();
 };
 function checkUser() {
-    showLoading();
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const Toast = Swal.mixin({
@@ -160,6 +159,7 @@ function checkUser() {
     xhttp.send();
 }
 function login(username, password) {
+    showLoading();
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -182,6 +182,7 @@ function login(username, password) {
                     if (objects[0].status === "ok") {
                         sessionStorage.setItem("jwt", objects[0].user_id);
                         sessionStorage.setItem("user_type", objects[0].user_type);
+                         hideLoading();
                         Toast.fire({
                             icon: 'success',
                             title: 'Login Successful'
@@ -193,6 +194,7 @@ function login(username, password) {
                             }, 1000);
                         });
                     } else {
+                         hideLoading();
                         Toast.fire({
                             icon: 'error',
                             title: 'Username and password do not match',
@@ -204,6 +206,7 @@ function login(username, password) {
                         });
                     }
                 } catch (error) {
+                     hideLoading();
                     console.error(error);
                     Toast.fire({
                         icon: 'error',
@@ -212,6 +215,7 @@ function login(username, password) {
                     });
                 }
             } else {
+                 hideLoading();
                 Toast.fire({
                     icon: 'error',
                     title: 'There was an error with your request. Please try again later.'
@@ -224,6 +228,7 @@ function login(username, password) {
         "username": username,
         "password": password,
     };
+     hideLoading();
     xhr2.send(JSON.stringify(data));
     return false;
 };
