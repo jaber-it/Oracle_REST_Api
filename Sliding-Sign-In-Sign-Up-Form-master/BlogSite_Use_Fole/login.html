@@ -8,21 +8,41 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     integrity="sha512-/yVRLYEpX75KQ+oQQDptdrNAhZiEl1A1NwKjJK0vJEN95h99lF9fjK7z6xnlx5A5U6jnkU6rYSMhDzMK8HXdWg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--
-  <link
-    href='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/style.css'
-    rel='stylesheet' />
--->
   <link href='style.css' rel='stylesheet' />
+  <style>
+    .allinone {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
 </head>
 
-<body>
+<div id="loading-overlay">
+  <div id="loading-icon"></div>
+</div>
 
-  <div id="loading-overlay">
-    <div id="loading-icon"></div>
+<header style="height: 50px; padding: 10px;">
+  <div id="login-logout-container">
+    <button id="login-logout-button" onclick="loginLogoutButtonClicked()">Login</button>
+    <div id="user-info-container" style="display: none">
+      <img id="avatar2" src='' alt="" />
+      <span id="fname2"></span>
+      <div class="dropdown">
+        <a class="beat-fade-icon" type="button" onclick="toggleLogoutDropdown()">
+          <i id="arrow-icon" class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+        <ul id="logout-dropdown-menu" class="dropdown-menu">
+          <li><a class="dropdown-item" id="logout-button" href="#" onclick="logout()">Logout</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
+</header>
 
+<div class="allinone">
   <div class="containerdiv">
     <!-- Registration Form -->
     <div class="form login" id="loginForm">
@@ -120,29 +140,54 @@
           <div class="mycenter">
             <button class="mybutton6" type="button" onclick="validateForm()">Create New Account</button>
           </div>
-          <!--
-          <div class="button">
-            <input type="button" onclick="validateForm();" value="Signup">
-          </div>
--->
           <div class="login-signup">
             <span class="text">Already a member?
               <a href="#" class="text login-link">Login Now</a>
             </span>
           </div>
-
-
-
         </form>
       </div>
     </div>
   </div>
-<!--
-  <script
-    src='https://cdn.jsdelivr.net/gh/jABER-IT/Oracle_REST_Api/Sliding-Sign-In-Sign-Up-Form-master/BlogSite_Use_Fole/Script.js'>  </script>
-  -->
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js'>  </script>
-  <script src="Script.js">  </script>
+
+  <div class="fullbody">
+    <div class="card">
+      <div class="img-wrapper">
+        <img id="avatar3" src='' alt="" />
+        <div class="overlay"></div>
+      </div>
+      <div class="details">
+        <h2 id="full_name">Full Name</h2>
+        <div class="contact-info">
+          <ul>
+            <li><i class="fas fa-phone-alt"></i> <span id="phone_number">Phone Number</span></li>
+            <li><i class="fas fa-envelope"></i> <span id="email_address">Email Address</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mycenter">
+        <button class="mybutton5" type="button" onclick="logout()">LogOut</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="fullbody2">
+    <div class="card">
+      <p class="titlelogin">Login to view more detailed description and advanced SQL, PLSQL code.</p>
+      <li>Registered users can see more detailed descriptions of various posts.</li>
+      <li>Anyone can see various examples of SQL, PLSQL code.</li>
+      <li>Can direct message for any assistance.</li>
+      <li>In addition, there are other types of facilities.</li>
+
+      <div class="mycenter">
+        <button class="mybutton6" type="button" onclick="loginpage()">Login Or Signup</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js'>  </script>
+<script src="Script.js">  </script>
 </body>
 
 </html>
