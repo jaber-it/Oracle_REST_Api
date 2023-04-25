@@ -422,7 +422,7 @@ h2 {
     text-align: center;
     font-size: 15px;
     font-weight: bold;
-    padding: 5px 12px;
+    padding: 5px 20px;
     cursor: pointer;
     height: auto;
    border: 1px solid #36ba65;
@@ -436,7 +436,7 @@ h2 {
 }
 
 #login-logout-button:hover {
-    background-color: #00a192;
+    background-color: #002739;
     color: white;
 }
 
