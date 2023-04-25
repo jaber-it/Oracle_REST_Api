@@ -408,7 +408,7 @@ function loadUser(jwt) {
             console.log(response);
             if (response.items.length > 0) {
                 const user = response.items[0];
-                document.getElementById("avatar").src = user.pp_url;
+                document.getElementById("avatar3").src = user.pp_url;
                 document.getElementById("full_name").innerHTML = user.full_name;
                 document.getElementById("avatar2").src = user.pp_url;
                 document.getElementById("fname2").innerHTML = user.full_name;
