@@ -225,7 +225,7 @@ function validateForm() {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 2000,
         timerProgressBar: true,
         didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -357,9 +357,9 @@ function insert_api_Data() {
                                     icon: 'success',
                                     title: 'Registration Successful',
                                 }).then((result) => {
-                                    if (result.isConfirmed) {
-                                         window.location.reload(1);
-                                    }
+                                 //    window.history.back();
+                                    loginForm.style.display = 'block';
+                                     signupForm.style.display = 'none';
                                 });
                             } else {
                                 Toast.fire({
