@@ -359,8 +359,6 @@ function insert_api_Data() {
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                          window.location.reload(1);
-                                        loginForm.style.display = 'block';
-                                        signupForm.style.display = 'none';
                                     }
                                 });
                             } else {
