@@ -427,7 +427,7 @@ h2 {
     height: auto;
    border: 1px solid #36ba65;
     border-radius: 9px;
-    box-shadow: 7px 8px 11px rgb(33 2 2 / 64%);
+    box-shadow: 7px 3px 10px rgb(33 2 2 / 64%);
 }
 
 #login-logout-button {
