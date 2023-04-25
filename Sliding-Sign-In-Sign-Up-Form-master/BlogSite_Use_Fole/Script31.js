@@ -95,7 +95,6 @@ function logvalidateForm() {
     checkUser();
 };
 function checkUser() {
-    showLoading();
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const Toast = Swal.mixin({
@@ -120,7 +119,6 @@ function checkUser() {
                     if (user) {
                         if (user.password === password) {
                             login(username, password);
-                            hideLoading();
                         } else {
                             Toast.fire({
                                 icon: 'error',
