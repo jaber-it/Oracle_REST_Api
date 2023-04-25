@@ -179,11 +179,14 @@ function login(username, password) {
                             icon: 'success',
                             title: 'Login Successful'
                         }).then(() => {
+                             window.history.back();
                             // Redirect to index.html after 3 seconds
+                            /*
                             setTimeout(() => {
                                 // window.location.href = './new.html';
                                 window.history.back();
                             }, 1000);
+                            */
                         });
                     } else {
                         Toast.fire({
