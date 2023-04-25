@@ -358,6 +358,7 @@ function insert_api_Data() {
                                     title: 'Registration Successful',
                                 }).then((result) => {
                                     if (result.isConfirmed) {
+                                         window.location.reload(1);
                                         loginForm.style.display = 'block';
                                         signupForm.style.display = 'none';
                                     }
