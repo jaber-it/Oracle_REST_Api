@@ -5,6 +5,7 @@ const loginLink = document.querySelector('.login-link');
 const signupLink = document.querySelector('.signup-link');
 const loginLogoutButton = document.getElementById('login-logout-button');
 const userInfoContainer = document.getElementById('user-info-container');
+const avatar = document.getElementById('avatar');
 const avatar2 = document.getElementById('avatar2');
 const fname2 = document.getElementById('fname2');
 const arrowIcon = document.getElementById('arrow-icon');
@@ -32,6 +33,7 @@ showhide();
 function checkJWT() {
     const loginLogoutButton = document.getElementById('login-logout-button');
     const userInfoContainer = document.getElementById('user-info-container');
+    const avatar = document.getElementById('avatar');
     const avatar2 = document.getElementById('avatar2');
     const fname2 = document.getElementById('fname2');
     const arrowIcon = document.getElementById('arrow-icon');
@@ -431,6 +433,7 @@ function showLoading() {
 function hideLoading() {
     document.getElementById("loading-overlay").style.display = "none";
 };
+/*
 // Chack User Login Info..
 function checkLoggedIn() {
     const jwt = sessionStorage.getItem("jwt");
@@ -444,6 +447,7 @@ function checkLoggedIn() {
         userInfoContainer.style.display = 'none';
     }
 };
+*/
 // Function to toggle the logout dropdown menu
 function toggleLogoutDropdown() {
     const logoutDropdownMenu = document.getElementById('logout-dropdown-menu');
