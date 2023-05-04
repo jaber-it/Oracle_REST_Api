@@ -187,11 +187,11 @@ form .input-field span.details {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 15px;
     padding: 23px;
     border: 1px solid #491e1e;
     border-radius: 30px;
     box-shadow: 7px 7px 10px rgb(33 2 2 / 64%);
-    margin-top: 15px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -290,10 +290,14 @@ h2 {
     background-color: #000000;
     color: white;
     cursor: pointer;
+    transition: all 0.3s ease;
     width: 100%;
     height: auto;
     border-radius: 30px;
     margin-top: 20px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mycenter {
@@ -324,6 +328,49 @@ h2 {
 
 .mybutton6:hover {
     background-color: #a10000;
+    border-radius: 30px;
+}
+.mycenter2 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mybutton7 {
+    height: 45px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  align-items: center;
+  width: -webkit-fill-available;
+  }
+  
+  .mybutton7:hover {
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #333;
+  }
+
+  
+.slidimg {
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 14px;
+    margin-left: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    display: block;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 0px 12px rgb(109, 255, 18);
+}
+
+.slidimg:hover .overlay {
+    opacity: 1;
 }
 
 .titlelogin {
@@ -342,7 +389,6 @@ h2 {
 .fullbody2 {
     padding: 15px;
 }
-
 
 #login-logout-container {
     max-width:160px;
@@ -396,6 +442,7 @@ h2 {
 #avatar2:hover .overlay {
     opacity: 1;
 }
+
 
 .dropdown-menu {
     transform: translate(-42px, 10px);
